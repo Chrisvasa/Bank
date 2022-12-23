@@ -8,10 +8,14 @@ namespace Bank
 {
     internal class Reset
     {
-        public void ResetPass()
+        string[,] users = new string[0,0];
+        public Reset(User userList)
         {
-            Console.WriteLine("You wanted to change your password, huh?");
-            Console.ReadLine();
+            users = userList.GetUsers();
+        }
+        public void ResetPass(int index)
+        {
+            users[index, 1] = "321";
         }
     }
 }

@@ -24,11 +24,13 @@ namespace Bank
             menuArr[2] = "Exit";
             //printer.Text = "Character Creator";
         }
-        public MenuSystem(string item1, string item2, string item3)
+        public MenuSystem(string item1, string item2, string item3, string item4)
         {
+            menuArr = new string[4];
             menuArr[0] = item1;
             menuArr[1] = item2;
             menuArr[2] = item3;
+            menuArr[3] = item4;
             //printer.Text = Title;
         }
         // Prints the menu
@@ -53,7 +55,7 @@ namespace Bank
             get { return selectedIndex; }
             set
             {
-                if (value >= 0 && value < 3)
+                if (value >= 0 && value < menuArr.Length)
                 {
                     selectedIndex = value;
                 }

@@ -12,10 +12,13 @@ class Program
     {
         int index;
         bool isTrue = true;
-        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton", "Logga ut");
+        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton","Ta ut pengar", "Logga ut");
         MenuSystem mainMenu = new MenuSystem(subMenu);
+        User users = new User();
         Login log = new Login();
-        Reset res = new Reset();
+        Reset res = new Reset(users);
+        string[,] userList = users.GetUsers();
+
 
         do
         {
@@ -24,21 +27,50 @@ class Program
             switch (index)
             {
                 case 0:
-                    log.UserLogin();
-                    subMenu.PrintSystem();
-                    subMenu.UseMenu(); // subMenu, log, res
+                    log.UserLogin(userList);
+                    TastyFunction(subMenu);
                     break;
                 case 1:
-                    res.ResetPass();
+                    res.ResetPass(0);
+                    Console.WriteLine("Password was changed! Press any key to continue.");
+                    users.UpdateList();
+                    Console.ReadKey();
                     break;
                 case 2:
                     Console.WriteLine("You have exited the program. Good bye!!");
                     isTrue = false;
                     break;
             }
-            Console.ReadKey();
         } while (isTrue);
+    }
 
+    private static void TastyFunction(MenuSystem sMenu)
+    {
+        int index = 0;
+        bool isTrue = true;
+        do
+        {
+            sMenu.PrintSystem();
+            index = sMenu.UseMenu(); // subMenu, log, res
+            switch (index)
+            {
+                case 0:
+                    Console.WriteLine("lmao");
+                    Console.ReadKey();
+                    break;
+                case 1:
+                    Console.WriteLine("rofl");
+                    Console.ReadKey();
+                    break;
+                case 2:
+                    Console.WriteLine("lel");
+                    break;
+                case 3:
+                    Console.WriteLine("You have exited the program. Good bye!!");
+                    isTrue = false;
+                    break;
+            }
+        } while (isTrue);
 
     }
 }

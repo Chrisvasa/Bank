@@ -9,33 +9,71 @@ namespace Bank
 {
     public class Login
     {
-        protected string[,] users = new string[0, 0];
-        public Login()
-        {
-            string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt");
-            users = new string[userArr.Count(), 2];
 
-            for (int i = 0; i < userArr.Count(); i++)
+        //protected string[,] users = new string[0, 0];
+        //public Login()
+        //{
+        //    string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt");
+        //    users = new string[userArr.Count(), 2];
+
+        //    for (int i = 0; i < userArr.Count(); i++)
+        //    {
+        //        for (int j = 0; j < 2; j++)
+        //        {
+        //            var numbers = userArr[i].Split(',');
+        //            users[i, j] = numbers[j];
+        //            if (j == 1)
+        //            {
+        //                users[i, j] = users[i, j].TrimStart();
+        //            }
+        //        }
+        //    }
+        //}
+
+        public bool UserLogin(string[,] users)
+        {
+            bool isTrue = true;
+            int count = 0;
+            do
             {
-                for (int j = 0; j < 2; j++)
+                Console.Clear();
+                Console.WriteLine("Enter your username: ");
+                string userName = Console.ReadLine();
+                for (int i = 0; i < users.Length / 2; i++)
                 {
-                    var numbers = userArr[i].Split(',');
-                    users[i, j] = numbers[j];
-                    if (j == 1)
+                    if (users[i, 0] == userName)
                     {
-                        users[i, j] = users[i, j].TrimStart();
+                        Console.WriteLine("Password: ");
+                        string password = Console.ReadLine();
+                        if (users[i, 1] == password)
+                        {
+                            Console.WriteLine("Login success!");
+                            Console.ReadLine();
+                            isTrue = false;
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong password. Try again!");
+                            count++;
+                            Console.ReadKey();
+                        }
+                        if (count >= 3)
+                        {
+                            Console.WriteLine("Too many attempts have been made..");
+                            Console.ReadKey();
+                            isTrue = false;
+                        }
                     }
+                    //else
+                    //{
+                    //    Console.WriteLine("Username not found");
+                    //    Console.ReadKey();
+                    //}
                 }
-            }
-        }
+            } while (isTrue);
+            return false;
 
-        public void UserLogin()
-        {
-            Console.Clear();
-            Console.WriteLine("Enter your username: ");
-            string userName = Console.ReadLine();
-            Console.WriteLine("Password: ");
-            string password = Console.ReadLine();
         }
     }
 }
