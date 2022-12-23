@@ -12,7 +12,7 @@ namespace Bank
         protected string[,] users = new string[0, 0];
         public Login()
         {
-            string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Users.txt");
+            string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt");
             users = new string[userArr.Count(), 2];
 
             for (int i = 0; i < userArr.Count(); i++)

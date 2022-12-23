@@ -70,43 +70,47 @@ namespace Bank
             menuArr = menu;
         }
 
-        public void UseMenu(MenuSystem currentMenu, Login log, Reset res)
+        public int UseMenu() // MenuSystem currentMenu, Login log, Reset res
         {
             InputHandler menuInput = new InputHandler();
 
             ConsoleKey key;
-            bool test = true;
+            bool test = false;
             do
             {
                 key = menuInput.ReadInput();
                 if (key == ConsoleKey.UpArrow)
                 {
-                    currentMenu.SelectIndex--;
+                    SelectIndex--;
                 }
                 else if (key == ConsoleKey.DownArrow)
                 {
-                    currentMenu.SelectIndex++;
+                    SelectIndex++;
                 }
                 else if (key == ConsoleKey.Enter || key == ConsoleKey.Spacebar)
                 {
-                    switch (currentMenu.SelectIndex)
-                    {
-                        case 0:
-                            log.UserLogin();
-                            break;
-                        case 1:
-                            res.ResetPass();
-                            break;
-                        case 2:
-                            Console.WriteLine("You chose exit. Press any key to close the program.");
-                            test = false;
-                            break;
-                    }
+                    test = true;
+                    break;
+                    //switch (currentMenu.SelectIndex)
+                    //{
+                    //    case 0:
+                    //        test = log.UserLogin();
+                    //        break;
+                    //    case 1:
+                    //        res.ResetPass();
+                    //        break;
+                    //    case 2:
+                    //        Console.WriteLine("You chose exit. Press any key to close the program.");
+                    //        Console.ReadKey();
+                    //        test = true;
+                    //        break;
+                    //}
                 }
                 Console.Clear();
                 //printer.Print();
-                currentMenu.PrintSystem();
-            } while (test == true);
+                PrintSystem();
+            } while (test == false);
+            return selectedIndex;
         }
     }
 }
