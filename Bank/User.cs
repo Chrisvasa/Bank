@@ -58,9 +58,12 @@ namespace Bank
                         text += ", ";
                     }
                 }
-                text += "\n";
+                if(i < 4)
+                {
+                    text += "\n";
+                }
             }
-            Console.WriteLine(text);
+            //Console.WriteLine(text);
             File.WriteAllText(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt", text);
         }
 

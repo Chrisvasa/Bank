@@ -9,7 +9,7 @@ namespace Bank
 {
     public class Login
     {
-
+        protected int userIndex = 0;
         //protected string[,] users = new string[0, 0];
         //public Login()
         //{
@@ -30,6 +30,11 @@ namespace Bank
         //    }
         //}
 
+        public int UserIndex 
+        { 
+            get { return userIndex; } 
+            set { userIndex = value; }
+        }
         public bool UserLogin(string[,] users)
         {
             bool isTrue = true;
@@ -37,18 +42,19 @@ namespace Bank
             do
             {
                 Console.Clear();
-                Console.WriteLine("Enter your username: ");
+                Console.Write("Enter your username: ");
                 string userName = Console.ReadLine();
                 for (int i = 0; i < users.Length / 2; i++)
                 {
                     if (users[i, 0] == userName)
                     {
-                        Console.WriteLine("Password: ");
+                        Console.Write("Password: ");
                         string password = Console.ReadLine();
                         if (users[i, 1] == password)
                         {
                             Console.WriteLine("Login success!");
                             Console.ReadLine();
+                            UserIndex = i;
                             isTrue = false;
                             return true;
                         }
