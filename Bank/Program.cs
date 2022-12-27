@@ -17,7 +17,7 @@ class Program
         User users = new User();
         Login log = new Login();
         Reset res = new Reset(users);
-        string[,] userList = users.GetUsers();
+        string[,] userList = users.Users;
 
         do
         {
@@ -153,7 +153,19 @@ class Program
  * - Klass vars uppgift är att hantera användarinput - T.ex. Läsa av piltangenterna för menyn
  * > Metod för att ta emot userInput och sedan returnera knappen som trycktes på
  * -----------------------------------------------------------------------------------
+ * User.cs
+ * - Klass vars uppgift är att hantera AnvändarArrayn - Läsa, och skriva över 
+ * > Constructor för att läsa in Users.txt och skapa en array
+ * > Metod för att returnera arrayn
+ * > Getter och Setter för lösenordet
+ * > metod för att ändra lösenordet som tar in ett index
+ * > metod för att uppdatera listan, efter att ändringar gjorts och sedan spara dessa i textfilen
+ * -----------------------------------------------------------------------------------
  * Users.txt
  * - En textfil som bevarar användarnamn samt lösenord
  * - Tillåter ändringar utav lösenord som sparas mellan körningar
+ */
+
+/* VIKTIGT!
+ * 
  */

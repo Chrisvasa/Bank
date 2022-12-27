@@ -34,6 +34,12 @@ namespace Bank
             return users;
         }
 
+        public string[,] Users 
+        { 
+            get { return users; } 
+            set { users = value; }
+        }
+
         public string Password
         {
             get { return password; }

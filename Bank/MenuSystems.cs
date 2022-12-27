@@ -13,6 +13,13 @@ namespace Bank
 {
     internal class MenuSystem
     {
+        protected int userIndex;
+
+        public int UserIndex 
+        { 
+            get { return userIndex; } 
+            set { userIndex = value; }
+        }
         string[] menuArr = new string[3];
         //PrintSystem printer = new PrintSystem();
         //InputHandler menuInput = new InputHandler();

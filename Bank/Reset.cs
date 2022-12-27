@@ -11,7 +11,7 @@ namespace Bank
         string[,] users = new string[0,0];
         public Reset(User userList)
         {
-            users = userList.GetUsers();
+            users = userList.Users;
         }
         public void ResetPass(int index)
         {
