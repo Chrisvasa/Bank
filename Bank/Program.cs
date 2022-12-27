@@ -28,9 +28,9 @@ class Program
                 case 0:
                     log.UserLogin(userList);
                     Console.Clear();
-                    Console.WriteLine("Welcome {0}", userList[log.UserIndex,0]);
-                    Console.ReadKey();
-                    TastyFunction(subMenu);
+                    //Console.WriteLine("Welcome {0}", userList[log.UserIndex,0]);
+                    //Console.ReadKey();
+                    TastyFunction(subMenu, log.UserIndex);
                     break;
                 case 1:
                     res.ResetPass(0);
@@ -46,7 +46,7 @@ class Program
         } while (isTrue);
     }
 
-    private static void TastyFunction(MenuSystem sMenu)
+    private static void TastyFunction(MenuSystem sMenu, int userIndex)
     {
         int index = 0;
         bool isTrue = true;
@@ -57,7 +57,7 @@ class Program
             switch (index)
             {
                 case 0:
-                    Console.WriteLine("lmao");
+                    MoneyPants(userIndex);
                     Console.ReadKey();
                     break;
                 case 1:
@@ -73,7 +73,30 @@ class Program
                     break;
             }
         } while (isTrue);
+    }
 
+    private static void MoneyPants(int index)
+    {
+        MenuSystem money = new MenuSystem();
+        string[][] accounts = new string[][]
+        {
+            new string[] {"Privatkonto", "Sparkonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
+        };
+
+        string[] userAcc = new string[accounts[index].Length + 1];
+        for(int i = 0; i < accounts[index].Length; i++)
+        {
+            userAcc[i] = accounts[index][i];
+        }
+        userAcc[accounts[index].Length] = "Gå tillbaka";
+
+        money.SetMenu(userAcc);
+        money.PrintSystem();
+        money.UseMenu();
     }
 }
 
@@ -170,6 +193,7 @@ class Program
  * > Metod som tar emot olika antal metoder och har 
  */
 
-/* VIKTIGT!
- * 
+/* Jobba på:
+ * PrintSystems - Printa ut menyerna?
+ * Fixa en simpel version på överföring / ta ut pengar
  */
