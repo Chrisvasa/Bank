@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
+    // A class that allows the user to reset passwords of different users
     internal class Reset
     {
         string[,] users = new string[0,0];
@@ -13,6 +14,8 @@ namespace Bank
         {
             users = userList.Users;
         }
+
+
         public void ResetPass(int index)
         {
             users[index, 1] = "321";

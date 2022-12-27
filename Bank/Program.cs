@@ -13,7 +13,7 @@ class Program
         int index;
         bool isTrue = true;
         MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton","Ta ut pengar", "Logga ut");
-        MenuSystem mainMenu = new MenuSystem(subMenu);
+        MenuSystem mainMenu = new MenuSystem("Log in", "Reset Password", "Exit");
         User users = new User();
         Login log = new Login();
         Reset res = new Reset(users);
@@ -164,6 +164,10 @@ class Program
  * Users.txt
  * - En textfil som bevarar användarnamn samt lösenord
  * - Tillåter ändringar utav lösenord som sparas mellan körningar
+ * -----------------------------------------------------------------------------------
+ * CaseHandler.cs (?)
+ * - Klass vars uppgift är att hantera olika switch cases
+ * > Metod som tar emot olika antal metoder och har 
  */
 
 /* VIKTIGT!

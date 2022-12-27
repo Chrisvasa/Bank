@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
+    // A class that reads from the Users.txt, parses it and then stores it as a 2d string array
     internal class User
     {
         protected string[,] users = new string[0, 0];
         protected string password;
+        // A constructor that parses and stores it in a 2d array upon initialization
         public User()
         {
             string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt");
@@ -28,7 +30,7 @@ namespace Bank
                 }
             }
         }
-
+        // Getters and setters
         public string[,] GetUsers()
         {
             return users;
@@ -45,12 +47,12 @@ namespace Bank
             get { return password; }
             set { password = value; }
         }
-
+        // Changes the password at given index
         public void ChangePassword(int index)
         {
             users[index, 1] = password;
         }
-
+        // Updates the Users.txt file with changed values
         public void UpdateList()
         {
             string text = "";

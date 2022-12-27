@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
+    // A class that takes in and checks user input
     internal class InputHandler
     {
         ConsoleKey keyPressed;

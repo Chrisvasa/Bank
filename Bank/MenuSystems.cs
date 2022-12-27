@@ -11,25 +11,23 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Bank
 {
+    // A class that handles the Menu logic
     internal class MenuSystem
     {
-        protected int userIndex;
-
-        public int UserIndex 
-        { 
-            get { return userIndex; } 
-            set { userIndex = value; }
-        }
         string[] menuArr = new string[3];
-        //PrintSystem printer = new PrintSystem();
-        //InputHandler menuInput = new InputHandler();
         int selectedIndex = 0;
-        public MenuSystem(MenuSystem menu)
+        // CONSTRUCTORS for different sized menus
+        public MenuSystem(string item1, string item2, string item3)
         {
-            menuArr[0] = "Login";
-            menuArr[1] = "Reset password";
-            menuArr[2] = "Exit";
-            //printer.Text = "Character Creator";
+            menuArr[0] = item1;
+            menuArr[1] = item2;
+            menuArr[2] = item3;
+        }
+        public MenuSystem(string item1, string item2)
+        {
+            menuArr = new string[2];
+            menuArr[0] = item1;
+            menuArr[1] = item2;
         }
         public MenuSystem(string item1, string item2, string item3, string item4)
         {
@@ -38,12 +36,31 @@ namespace Bank
             menuArr[1] = item2;
             menuArr[2] = item3;
             menuArr[3] = item4;
-            //printer.Text = Title;
         }
-        // Prints the menu
+        public MenuSystem(string item1, string item2, string item3, string item4, string item5)
+        {
+            menuArr = new string[5];
+            menuArr[0] = item1;
+            menuArr[1] = item2;
+            menuArr[2] = item3;
+            menuArr[3] = item4;
+            menuArr[4] = item5;
+        }
+        public MenuSystem(string item1, string item2, string item3, string item4, string item5, string item6)
+        {
+            menuArr = new string[6];
+            menuArr[0] = item1;
+            menuArr[1] = item2;
+            menuArr[2] = item3;
+            menuArr[3] = item4;
+            menuArr[4] = item5;
+            menuArr[5] = item6;
+        }
+        // A method that prints the menu when called
         public void PrintSystem()
         {
             Console.Clear();
+            // Prints out the menu items in the console, and puts brackets around the selected item.
             for (int i = 0; i < menuArr.Count(); i++)
             {
                 if (i == selectedIndex)
@@ -56,7 +73,7 @@ namespace Bank
                 }
             }
         }
-
+        // Getter and setter for the selected index
         public int SelectIndex
         {
             get { return selectedIndex; }
@@ -78,7 +95,7 @@ namespace Bank
         {
             menuArr = menu;
         }
-
+        // A method that allows the user to orientate around the menu
         public int UseMenu() // MenuSystem currentMenu, Login log, Reset res
         {
             InputHandler menuInput = new InputHandler();
@@ -100,20 +117,6 @@ namespace Bank
                 {
                     test = true;
                     break;
-                    //switch (currentMenu.SelectIndex)
-                    //{
-                    //    case 0:
-                    //        test = log.UserLogin();
-                    //        break;
-                    //    case 1:
-                    //        res.ResetPass();
-                    //        break;
-                    //    case 2:
-                    //        Console.WriteLine("You chose exit. Press any key to close the program.");
-                    //        Console.ReadKey();
-                    //        test = true;
-                    //        break;
-                    //}
                 }
                 Console.Clear();
                 //printer.Print();

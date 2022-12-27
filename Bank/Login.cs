@@ -7,34 +7,21 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
+    // Class that handles the login logic
     public class Login
     {
-        protected int userIndex = 0;
-        //protected string[,] users = new string[0, 0];
-        //public Login()
-        //{
-        //    string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt");
-        //    users = new string[userArr.Count(), 2];
-
-        //    for (int i = 0; i < userArr.Count(); i++)
-        //    {
-        //        for (int j = 0; j < 2; j++)
-        //        {
-        //            var numbers = userArr[i].Split(',');
-        //            users[i, j] = numbers[j];
-        //            if (j == 1)
-        //            {
-        //                users[i, j] = users[i, j].TrimStart();
-        //            }
-        //        }
-        //    }
-        //}
-
+        // Index of currently logged in user
+        protected int userIndex = -1;
         public int UserIndex 
         { 
             get { return userIndex; } 
             set { userIndex = value; }
         }
+        /*A method to handle user login
+         *Takes the 2d array of users
+         *First checks if username is on the list, and then prompts for the password
+         *If password is correct, returns true - Else prompts user to try again and adds one to counter
+         *Locks user out after three failed attempts */
         public bool UserLogin(string[,] users)
         {
             bool isTrue = true;
@@ -71,11 +58,6 @@ namespace Bank
                             isTrue = false;
                         }
                     }
-                    //else
-                    //{
-                    //    Console.WriteLine("Username not found");
-                    //    Console.ReadKey();
-                    //}
                 }
             } while (isTrue);
             return false;
