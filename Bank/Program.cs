@@ -1,4 +1,6 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Dynamic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Bank;
 class Program
@@ -30,7 +32,7 @@ class Program
                     Console.Clear();
                     //Console.WriteLine("Welcome {0}", userList[log.UserIndex,0]);
                     //Console.ReadKey();
-                    TastyFunction(subMenu, log.UserIndex);
+                    AccountsMenu(subMenu, log.UserIndex);
                     break;
                 case 1:
                     res.ResetPass(0);
@@ -46,7 +48,7 @@ class Program
         } while (isTrue);
     }
 
-    private static void TastyFunction(MenuSystem sMenu, int userIndex)
+    private static void AccountsMenu(MenuSystem sMenu, int userIndex)
     {
         int index = 0;
         bool isTrue = true;
@@ -57,11 +59,11 @@ class Program
             switch (index)
             {
                 case 0:
-                    MoneyPants(userIndex);
+                    GetAccount(userIndex);
                     Console.ReadKey();
                     break;
                 case 1:
-                    Console.WriteLine("rofl");
+                    AccountTransfer(userIndex);
                     Console.ReadKey();
                     break;
                 case 2:
@@ -75,9 +77,11 @@ class Program
         } while (isTrue);
     }
 
-    private static void MoneyPants(int index)
+    private static void GetAccount(int userIndex)
     {
-        MenuSystem money = new MenuSystem();
+        int index = 0;
+        bool isTrue = true;
+        MenuSystem userMenu = new MenuSystem();
         string[][] accounts = new string[][]
         {
             new string[] {"Privatkonto", "Sparkonto"},
@@ -87,16 +91,121 @@ class Program
             new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
         };
 
-        string[] userAcc = new string[accounts[index].Length + 1];
-        for(int i = 0; i < accounts[index].Length; i++)
+        string[] userAcc = new string[accounts[userIndex].Length + 1];
+        for(int i = 0; i < accounts[userIndex].Length; i++)
         {
-            userAcc[i] = accounts[index][i];
+            userAcc[i] = accounts[userIndex][i];
         }
-        userAcc[accounts[index].Length] = "Gå tillbaka";
+        userAcc[accounts[userIndex].Length] = "Gå tillbaka";
 
-        money.SetMenu(userAcc);
-        money.PrintSystem();
-        money.UseMenu();
+        userMenu.SetMenu(userAcc);
+        
+        do
+        {
+            userMenu.PrintSystem();
+            index = userMenu.UseMenu();
+            if(index == accounts[userIndex].Length)
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine(UserFunds(userIndex, index));
+                Console.ReadLine();
+            }
+        } while (isTrue);
+    }
+
+    private static void AccountTransfer(int userIndex)
+    {
+        int index = 0;
+        bool isTrue = true;
+        CustomerFunds cFunds = new CustomerFunds();
+        decimal[][] fundList = cFunds.UserFunds;
+        MenuSystem userMenu = new MenuSystem();
+        string[][] accounts = new string[][]
+        {
+            new string[] {"Privatkonto", "Sparkonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
+        };
+
+        string[] userAcc = new string[accounts[userIndex].Length + 1];
+        for (int i = 0; i < accounts[userIndex].Length; i++)
+        {
+            userAcc[i] = accounts[userIndex][i];
+        }
+        userAcc[accounts[userIndex].Length] = "Gå tillbaka";
+
+        userMenu.SetMenu(userAcc);
+        do
+        {
+            userMenu.PrintSystem();
+            Console.WriteLine("Select an account to transfer money from...");
+            index = userMenu.UseMenu();
+            if (index == accounts[userIndex].Length)
+            {
+                break;
+            }
+            else
+            {
+                Console.Write("Input amount to transfer: ");
+                // Fix try catch / check so amount is not to big
+                decimal userInput = decimal.Parse(Console.ReadLine());
+                fundList[userIndex][index] -= userInput;
+                Console.WriteLine(fundList[userIndex][index]);
+                if(userIndex > 0)
+                {
+                    fundList[userIndex][index - 1] += userInput;
+                    Console.WriteLine(fundList[userIndex][index - 1]);
+                }
+                else
+                {
+                    fundList[userIndex][index + 1] += userInput;
+                    Console.WriteLine(fundList[userIndex][index + 1]);
+                }
+                Console.ReadLine();
+            }
+        } while (isTrue);
+    }
+
+    private static decimal UserFunds(int userIndex, int index)
+    {
+        decimal[][] userFunds = new decimal[][]
+        {
+            new decimal[] {2500, 500},
+            new decimal[] {6000, 500, 2700},
+            new decimal[] {13000, 250, 444, 9370},
+            new decimal[] {12750, 2440, 3, 1780,5, 23000},
+            new decimal[] {125523, 99887, 78787, 45454, 3333, 25}
+        };
+
+        return userFunds[userIndex][index];
+    }
+}
+
+internal class CustomerFunds
+{
+    protected decimal[][] userFunds = new decimal[0][];
+
+    public CustomerFunds()
+    {
+        userFunds = new decimal[][]
+        {
+            new decimal[] {2500, 500},
+            new decimal[] {6000, 500, 2700},
+            new decimal[] {13000, 250, 444, 9370},
+            new decimal[] {12750, 2440, 3, 1780,5, 23000},
+            new decimal[] {125523, 99887, 78787, 45454, 3333, 25}
+        };
+    }
+
+    public decimal[][] UserFunds
+    {
+        get { return userFunds; }
+        set { userFunds = value; }
     }
 }
 
