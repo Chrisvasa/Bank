@@ -119,6 +119,7 @@ class Program
     private static void AccountTransfer(int userIndex)
     {
         int index = 0;
+        int testIndex = -1;
         bool isTrue = true;
         CustomerFunds cFunds = new CustomerFunds();
         decimal[][] fundList = cFunds.UserFunds;
@@ -155,19 +156,15 @@ class Program
                 // Fix try catch / check so amount is not to big
                 decimal userInput = decimal.Parse(Console.ReadLine());
                 fundList[userIndex][index] -= userInput;
-                Console.WriteLine(fundList[userIndex][index]);
-                if(userIndex > 0)
+                while (testIndex == -1)
                 {
-                    fundList[userIndex][index - 1] += userInput;
-                    Console.WriteLine(fundList[userIndex][index - 1]);
-                }
-                else
-                {
-                    fundList[userIndex][index + 1] += userInput;
-                    Console.WriteLine(fundList[userIndex][index + 1]);
-                }
-                Console.ReadLine();
+                    testIndex = userMenu.UseMenu();
+                };
+                fundList[userIndex][testIndex] += userInput;
+                Console.WriteLine(fundList[userIndex][testIndex]);
             }
+            testIndex = -1;
+            Console.ReadLine();
         } while (isTrue);
     }
 
