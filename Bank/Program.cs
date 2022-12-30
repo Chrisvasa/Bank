@@ -16,6 +16,7 @@ class Program
         bool isTrue = true;
         MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton","Ta ut pengar", "Logga ut");
         MenuSystem mainMenu = new MenuSystem("Log in", "Reset Password", "Exit");
+        CustomerFunds funds = new CustomerFunds();
         User users = new User();
         Login log = new Login();
         Reset res = new Reset(users);
@@ -32,7 +33,7 @@ class Program
                     Console.Clear();
                     //Console.WriteLine("Welcome {0}", userList[log.UserIndex,0]);
                     //Console.ReadKey();
-                    AccountsMenu(subMenu, log.UserIndex);
+                    AccountsMenu(subMenu, log.UserIndex, funds);
                     break;
                 case 1:
                     res.ResetPass(0);
@@ -48,7 +49,7 @@ class Program
         } while (isTrue);
     }
 
-    private static void AccountsMenu(MenuSystem sMenu, int userIndex)
+    private static void AccountsMenu(MenuSystem sMenu, int userIndex, CustomerFunds funds)
     {
         int index = 0;
         bool isTrue = true;
@@ -59,11 +60,11 @@ class Program
             switch (index)
             {
                 case 0:
-                    GetAccount(userIndex);
+                    GetAccount(userIndex, funds);
                     Console.ReadKey();
                     break;
                 case 1:
-                    AccountTransfer(userIndex);
+                    AccountTransfer(userIndex, funds);
                     Console.ReadKey();
                     break;
                 case 2:
@@ -77,7 +78,7 @@ class Program
         } while (isTrue);
     }
 
-    private static void GetAccount(int userIndex)
+    private static void GetAccount(int userIndex, CustomerFunds funds)
     {
         int index = 0;
         bool isTrue = true;
@@ -110,19 +111,18 @@ class Program
             }
             else
             {
-                Console.WriteLine(UserFunds(userIndex, index));
+                Console.WriteLine(funds.GetFundsAt(userIndex, index));
                 Console.ReadLine();
             }
         } while (isTrue);
     }
 
-    private static void AccountTransfer(int userIndex)
+    private static void AccountTransfer(int userIndex, CustomerFunds funds)
     {
         int index = 0;
         int testIndex = -1;
         bool isTrue = true;
-        CustomerFunds cFunds = new CustomerFunds();
-        decimal[][] fundList = cFunds.UserFunds;
+        decimal[][] fundList = funds.UserFunds;
         MenuSystem userMenu = new MenuSystem();
         string[][] accounts = new string[][]
         {
@@ -167,20 +167,6 @@ class Program
             Console.ReadLine();
         } while (isTrue);
     }
-
-    private static decimal UserFunds(int userIndex, int index)
-    {
-        decimal[][] userFunds = new decimal[][]
-        {
-            new decimal[] {2500, 500},
-            new decimal[] {6000, 500, 2700},
-            new decimal[] {13000, 250, 444, 9370},
-            new decimal[] {12750, 2440, 3, 1780,5, 23000},
-            new decimal[] {125523, 99887, 78787, 45454, 3333, 25}
-        };
-
-        return userFunds[userIndex][index];
-    }
 }
 
 internal class CustomerFunds
@@ -203,6 +189,11 @@ internal class CustomerFunds
     {
         get { return userFunds; }
         set { userFunds = value; }
+    }
+
+    public decimal GetFundsAt(int user, int index)
+    {
+        return userFunds[user][index];
     }
 }
 
