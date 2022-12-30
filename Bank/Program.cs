@@ -26,14 +26,18 @@ class Program
         {
             mainMenu.PrintSystem();
             index = mainMenu.UseMenu(); // mainMenu, log, res
+            bool test = false;
             switch (index)
             {
                 case 0:
-                    log.UserLogin(userList);
+                    test = log.UserLogin(userList);
                     Console.Clear();
                     //Console.WriteLine("Welcome {0}", userList[log.UserIndex,0]);
                     //Console.ReadKey();
-                    AccountsMenu(subMenu, log.UserIndex, funds);
+                    if(test == true)
+                    {
+                        AccountsMenu(subMenu, log.UserIndex, funds);
+                    }
                     break;
                 case 1:
                     res.ResetPass(0);
@@ -68,12 +72,56 @@ class Program
                     Console.ReadKey();
                     break;
                 case 2:
-                    Console.WriteLine("lel");
+                    Withdraw(userIndex, funds);
                     break;
                 case 3:
                     Console.WriteLine("You have exited the program. Good bye!!");
                     isTrue = false;
                     break;
+            }
+        } while (isTrue);
+    }
+
+
+    private static void Withdraw(int userIndex, CustomerFunds funds)
+    {
+        int index = 0;
+        bool isTrue = true;
+        MenuSystem userMenu = new MenuSystem();
+        decimal[][] fundList = funds.UserFunds;
+        string[][] accounts = new string[][]
+        {
+            new string[] {"Privatkonto", "Sparkonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
+        };
+
+        string[] userAcc = new string[accounts[userIndex].Length + 1];
+        for (int i = 0; i < accounts[userIndex].Length; i++)
+        {
+            userAcc[i] = accounts[userIndex][i];
+        }
+        userAcc[accounts[userIndex].Length] = "Gå tillbaka";
+
+        userMenu.SetMenu(userAcc);
+        decimal answer = 0;
+        do
+        {
+            userMenu.PrintSystem();
+            index = userMenu.UseMenu();
+            if (index == accounts[userIndex].Length)
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("How much money do you want to withdraw?");
+                answer = decimal.Parse(Console.ReadLine());
+                fundList[userIndex][index] -= answer;
+                Console.WriteLine("Remaining balance {0}",fundList[userIndex][index]);
+                Console.ReadLine();
             }
         } while (isTrue);
     }
