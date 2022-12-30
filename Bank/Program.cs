@@ -82,7 +82,6 @@ class Program
         } while (isTrue);
     }
 
-
     private static void Withdraw(int userIndex, CustomerFunds funds)
     {
         int index = 0;
@@ -216,7 +215,6 @@ class Program
         } while (isTrue);
     }
 }
-
 
 
 /*-----------------------------------------------------------------------------------
