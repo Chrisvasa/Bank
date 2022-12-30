@@ -30,7 +30,7 @@ namespace Bank
             {
                 Console.Clear();
                 Console.Write("Enter your username: ");
-                string userName = Console.ReadLine();
+                string userName = Console.ReadLine().ToUpper(); //toUpper
                 for (int i = 0; i < users.Length / 2; i++)
                 {
                     if (users[i, 0] == userName)
