@@ -119,7 +119,8 @@ class Program
                 Console.WriteLine("How much money do you want to withdraw?");
                 answer = decimal.Parse(Console.ReadLine());
                 fundList[userIndex][index] -= answer;
-                Console.WriteLine("Remaining balance {0}",fundList[userIndex][index]);
+                Console.WriteLine("Du har tagit ut {0} SEK", answer);
+                Console.WriteLine("Återstående saldo {0} SEK",fundList[userIndex][index]);
                 Console.ReadLine();
             }
         } while (isTrue);
@@ -158,7 +159,7 @@ class Program
             }
             else
             {
-                Console.WriteLine(funds.GetFundsAt(userIndex, index));
+                Console.WriteLine("Du har {0} SEK.", funds.GetFundsAt(userIndex, index));
                 Console.ReadLine();
             }
         } while (isTrue);
@@ -208,7 +209,8 @@ class Program
                     testIndex = userMenu.UseMenu();
                 };
                 fundList[userIndex][testIndex] += userInput;
-                Console.WriteLine(fundList[userIndex][testIndex]);
+                Console.WriteLine("Du har fört över {0} SEK från {1} till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
+                Console.WriteLine("Saldot på {0} är nu {1} SEK",accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
             }
             testIndex = -1;
             Console.ReadLine();
