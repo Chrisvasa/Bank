@@ -43,6 +43,8 @@ namespace Bank
             Console.WriteLine();
         }
 
+        // A simple function that prints out three dots after a given userInput
+        // Also takes input on how many times to execute
         public void Delay(string textInput, int timesToRun)
         {
             for(int i = 0; i < timesToRun; i++)
@@ -58,7 +60,7 @@ namespace Bank
                 Console.Clear();
             }
         }
-
+        // Prints out a progress bar in the console when called for
         public void PrintTransaction()
         {
             string loadBars = "------------------------------------";

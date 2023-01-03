@@ -17,7 +17,10 @@ namespace Bank
         string[] menuArr = new string[3];
         int selectedIndex = 0;
         // CONSTRUCTORS for different sized menus
-        public MenuSystem() { }
+        public MenuSystem() 
+        {
+            selectedIndex = 0;
+        }
         public MenuSystem(string item1, string item2, string item3)
         {
             menuArr[0] = item1;
@@ -126,7 +129,6 @@ namespace Bank
                     break;
                 }
                 Console.Clear();
-                //printer.Print();
                 PrintSystem();
             } while (test == false);
             return selectedIndex;

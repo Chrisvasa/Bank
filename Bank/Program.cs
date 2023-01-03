@@ -7,10 +7,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        TestFunction();
+        Bank();
     }
 
-    private static void TestFunction()
+    private static void Bank()
     {
         int index;
         bool isTrue = true;
@@ -18,8 +18,8 @@ class Program
         MenuSystem mainMenu = new MenuSystem("Log in", "Reset Password", "Exit");
         CustomerFunds funds = new CustomerFunds();
         User users = new User();
-        Login log = new Login();
-        Reset res = new Reset(users);
+        Login logIn = new Login();
+        Reset resetPass = new Reset(users);
         string[,] userList = users.Users;
 
         do
@@ -30,17 +30,15 @@ class Program
             switch (index)
             {
                 case 0:
-                    test = log.UserLogin(userList);
+                    test = logIn.UserLogin(userList);
                     Console.Clear();
-                    //Console.WriteLine("Welcome {0}", userList[log.UserIndex,0]);
-                    //Console.ReadKey();
                     if(test == true)
                     {
-                        AccountsMenu(subMenu, log.UserIndex, funds);
+                        AccountsMenu(subMenu, logIn.UserIndex, funds);
                     }
                     break;
                 case 1:
-                    res.ResetPass(0);
+                    resetPass.ResetPass();
                     Console.WriteLine("Password was changed! Press any key to continue.");
                     users.UpdateList();
                     Console.ReadKey();
@@ -106,6 +104,7 @@ class Program
 
         userMenu.SetMenu(userAcc);
         decimal answer = 0;
+        string pin;
         do
         {
             userMenu.PrintSystem();
@@ -118,10 +117,16 @@ class Program
             {
                 Console.WriteLine("How much money do you want to withdraw?");
                 answer = decimal.Parse(Console.ReadLine());
-                fundList[userIndex][index] -= answer;
-                Console.WriteLine("Du har tagit ut {0} SEK", answer);
-                Console.WriteLine("Återstående saldo {0} SEK",fundList[userIndex][index]);
-                Console.ReadLine();
+                Console.WriteLine("Skriv in din pinkod för att bekräfta.");
+                pin = Console.ReadLine();
+                if (answer <= fundList[userIndex][index] && answer > 0 && pin == "12345")
+                {
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    fundList[userIndex][index] -= answer;
+                    Console.WriteLine("Du har tagit ut {0} SEK", answer);
+                    Console.WriteLine("Återstående saldo {0} SEK", fundList[userIndex][index]);
+                    Console.ReadLine();
+                }
             }
         } while (isTrue);
     }
@@ -188,8 +193,8 @@ class Program
             userAcc[i] = accounts[userIndex][i];
         }
         userAcc[accounts[userIndex].Length] = "Gå tillbaka";
-
         userMenu.SetMenu(userAcc);
+
         do
         {
             userMenu.PrintSystem();
@@ -204,15 +209,22 @@ class Program
                 Console.Write("Input amount to transfer: ");
                 // Fix try catch / check so amount is not to big
                 decimal userInput = decimal.Parse(Console.ReadLine());
-                fundList[userIndex][index] -= userInput;
-                while (testIndex == -1)
+                if(userInput <= fundList[userIndex][index] && userInput > 0)
                 {
-                    testIndex = userMenu.UseMenu();
-                };
-                fundList[userIndex][testIndex] += userInput;
-                print.PrintTransaction();
-                Console.WriteLine("Du har fört över {0} SEK från {1} till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
-                Console.WriteLine("Saldot på {0} är nu {1} SEK",accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
+                    fundList[userIndex][index] -= userInput;
+                    while (testIndex == -1)
+                    {
+                        testIndex = userMenu.UseMenu();
+                    };
+                    fundList[userIndex][testIndex] += userInput;
+                    print.PrintTransaction();
+                    Console.WriteLine("Du har fört över {0} SEK från {1} till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
+                    Console.WriteLine("Saldot på {0} är nu {1} SEK", accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
+                }
+                else if(userInput > fundList[userIndex][index])
+                {
+                    Console.WriteLine("Not enough funds on account. Try again with a lower value.");
+                }
             }
             testIndex = -1;
             Console.ReadLine();

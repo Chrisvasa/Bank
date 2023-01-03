@@ -26,15 +26,18 @@ namespace Bank
         {
             bool isTrue = true;
             int count = 0;
+            int userLog = -1;
             do
             {
                 Console.Clear();
                 Console.Write("Enter your username: ");
+                userLog = -1;
                 string userName = Console.ReadLine().ToUpper(); //toUpper
                 for (int i = 0; i < users.Length / 2; i++)
                 {
                     if (users[i, 0] == userName)
                     {
+                        userLog = i;
                         Console.Write("Password: ");
                         string password = Console.ReadLine();
                         if (users[i, 1] == password)
@@ -55,9 +58,15 @@ namespace Bank
                         {
                             Console.WriteLine("Too many attempts have been made..");
                             Console.ReadKey();
+                            Environment.Exit(0);
                             isTrue = false;
                         }
                     }
+                }
+                if(userLog < 0)
+                {
+                    Console.WriteLine("Username not found. Press any key to try again.");
+                    Console.ReadKey();
                 }
             } while (isTrue);
             return false;

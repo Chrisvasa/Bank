@@ -15,10 +15,23 @@ namespace Bank
             users = userList.Users;
         }
 
-
-        public void ResetPass(int index)
+        // Allows the user to change the password of an existing account
+        public void ResetPass()
         {
-            users[index, 1] = "321";
+            Console.WriteLine("Username: ");
+            string anwser = Console.ReadLine().ToUpper();
+            string newPass = "12345";
+            int user = 0;
+            for (int i = 0; i < users.Length / 2; i++)
+            {
+                if (users[i,0] == anwser)
+                {
+                    user = i;
+                    Console.WriteLine("Enter a new passowrd: ");
+                    newPass = Console.ReadLine();
+                }
+            }
+                users[user, 1] = newPass;
         }
     }
 }
