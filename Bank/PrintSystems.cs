@@ -9,15 +9,15 @@ namespace Bank
     internal class PrintSystem
     {
         string text;
-        public PrintSystem()
-        {
-            text = File.ReadAllText(@"CreatorTitle.txt");
-        }
+        //public PrintSystem()
+        //{
+        //    text = File.ReadAllText(@"CreatorTitle.txt");
+        //}
 
-        public PrintSystem(string Text)
-        {
-            text = Text;
-        }
+        //public PrintSystem(string Text)
+        //{
+        //    text = Text;
+        //}
 
         public string Text
         {
@@ -43,7 +43,23 @@ namespace Bank
             Console.WriteLine();
         }
 
-        private void PrintTransaction()
+        public void Delay(string textInput, int timesToRun)
+        {
+            for(int i = 0; i < timesToRun; i++)
+            {
+                Console.Clear();
+                Console.Write(textInput);
+                for (int j = 0; j < 3; j++)
+                {
+                    Thread.Sleep(250);
+                    Console.Write(".");
+                }
+                Thread.Sleep(250);
+                Console.Clear();
+            }
+        }
+
+        public void PrintTransaction()
         {
             string loadBars = "------------------------------------";
             string box = "#";

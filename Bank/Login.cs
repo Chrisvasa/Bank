@@ -39,8 +39,8 @@ namespace Bank
                         string password = Console.ReadLine();
                         if (users[i, 1] == password)
                         {
-                            Console.WriteLine("Login success!");
-                            Console.ReadLine();
+                            PrintSystem print = new PrintSystem();
+                            print.Delay("Du loggas in", 3);
                             UserIndex = i;
                             isTrue = false;
                             return true;

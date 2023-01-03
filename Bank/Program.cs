@@ -172,6 +172,7 @@ class Program
         bool isTrue = true;
         decimal[][] fundList = funds.UserFunds;
         MenuSystem userMenu = new MenuSystem();
+        PrintSystem print = new PrintSystem();
         string[][] accounts = new string[][]
         {
             new string[] {"Privatkonto", "Sparkonto"},
@@ -209,6 +210,7 @@ class Program
                     testIndex = userMenu.UseMenu();
                 };
                 fundList[userIndex][testIndex] += userInput;
+                print.PrintTransaction();
                 Console.WriteLine("Du har fört över {0} SEK från {1} till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
                 Console.WriteLine("Saldot på {0} är nu {1} SEK",accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
             }
