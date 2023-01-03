@@ -42,5 +42,32 @@ namespace Bank
             }
             Console.WriteLine();
         }
+
+        private void PrintTransaction()
+        {
+            string loadBars = "------------------------------------";
+            string box = "#";
+            for (int i = 0; i < loadBars.Length; i++)
+            {
+                Console.Clear();
+                Console.WriteLine("Transaction in progress. Please hold.");
+                Console.WriteLine(loadBars);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(box);
+                Console.ResetColor();
+                box += "#";
+                Console.WriteLine(loadBars);
+                if (i > 20)
+                {
+                    Thread.Sleep(30);
+                }
+                else
+                {
+                    Thread.Sleep(150);
+                }
+            }
+            Console.WriteLine("Transaction completed. Great success!");
+            Console.ReadLine();
+        }
     }
 }
