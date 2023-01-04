@@ -7,6 +7,12 @@ class Program
 {
     static void Main(string[] args)
     {
+        //string test = "";
+        //while (String.IsNullOrEmpty(test))
+        //{
+        //    Console.WriteLine("Input something");
+        //    test = Console.ReadLine();
+        //}
         Bank();
     }
 
@@ -85,6 +91,7 @@ class Program
                     break;
             }
         } while (isTrue);
+        
     }
 
     private static void AddMoney(int userIndex, CustomerFunds funds)
@@ -123,21 +130,30 @@ class Program
             else
             {
                 Console.WriteLine("How much money do you want to deposit?");
-                answer = decimal.Parse(Console.ReadLine());
-                Console.WriteLine("Skriv in din pinkod för att bekräfta.");
-                pin = Console.ReadLine();
-                if (answer <= fundList[userIndex][index] && answer > 0 && pin == "12345")
+                bool success = decimal.TryParse(Console.ReadLine(), out answer);
+                if(success)
                 {
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);
-                    fundList[userIndex][index] += answer;
-                    Console.WriteLine("Du har lagt in {0} SEK", answer);
-                    Console.WriteLine("Ditt saldo är nu {0} SEK", fundList[userIndex][index]);
-                    Console.ReadLine();
+                    Console.WriteLine("Skriv in din pinkod för att bekräfta.");
+                    pin = Console.ReadLine();
+                    if (answer <= fundList[userIndex][index] && answer > 0 && pin == "12345")
+                    {
+                        Console.SetCursorPosition(0, Console.CursorTop - 1);
+                        fundList[userIndex][index] += answer;
+                        Console.WriteLine("Du har lagt in {0} SEK", answer);
+                        Console.WriteLine("Ditt saldo är nu {0} SEK", fundList[userIndex][index]);
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Something went wrong. Please try again.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Something went wrong. Please try again.");
+                    Console.WriteLine("Something went wrong.");
+                    Console.ReadKey();
                 }
+                
             }
         } while (isTrue);
     }
@@ -178,21 +194,31 @@ class Program
             else
             {
                 Console.WriteLine("How much money do you want to withdraw?");
-                answer = decimal.Parse(Console.ReadLine());
-                Console.WriteLine("Skriv in din pinkod för att bekräfta.");
-                pin = Console.ReadLine();
-                if (answer <= fundList[userIndex][index] && answer > 0 && pin == "12345")
+                bool success = decimal.TryParse(Console.ReadLine(), out answer);
+                if(success)
                 {
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);
-                    fundList[userIndex][index] -= answer;
-                    Console.WriteLine("Du har tagit ut {0} SEK", answer);
-                    Console.WriteLine("Återstående saldo {0} SEK", fundList[userIndex][index]);
-                    Console.ReadLine();
+                    Console.WriteLine("Skriv in din pinkod för att bekräfta.");
+                    pin = Console.ReadLine();
+                    if (answer <= fundList[userIndex][index] && answer > 0 && pin == "12345")
+                    {
+                        //Console.SetCursorPosition(0, Console.CursorTop - 1);
+                        fundList[userIndex][index] -= answer;
+                        Console.WriteLine("Du har tagit ut {0} SEK", answer);
+                        Console.WriteLine("Återstående saldo {0} SEK", fundList[userIndex][index]);
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong pincode. Please try again.");
+                        Console.ReadKey();
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Something went wrong. Please try again.");
+                    Console.WriteLine("Please enter a NUMBER. Press any key to continue");
+                    Console.ReadKey();
                 }
+
             }
         } while (isTrue);
     }
@@ -274,22 +300,40 @@ class Program
             {
                 Console.Write("Input amount to transfer: ");
                 // Fix try catch / check so amount is not to big
-                decimal userInput = decimal.Parse(Console.ReadLine());
-                if(userInput <= fundList[userIndex][index] && userInput > 0)
+                decimal userInput;
+                bool success = decimal.TryParse(Console.ReadLine(), out userInput);
+                if(success)
                 {
-                    fundList[userIndex][index] -= userInput;
-                    while (testIndex == -1)
+                    if (userInput <= fundList[userIndex][index] && userInput > 0)
                     {
-                        testIndex = userMenu.UseMenu();
-                    };
-                    fundList[userIndex][testIndex] += userInput;
-                    print.PrintTransaction();
-                    Console.WriteLine("Du har fört över {0} SEK från {1}t till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
-                    Console.WriteLine("Saldot på ditt {0} är nu {1} SEK", accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
+                        fundList[userIndex][index] -= userInput;
+                        while (testIndex == -1)
+                        {
+                            testIndex = userMenu.UseMenu();
+                        };
+                        if(testIndex != index)
+                        {
+                            fundList[userIndex][testIndex] += userInput;
+                            print.PrintTransaction();
+                            Console.WriteLine("Du har fört över {0} SEK från {1}t till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
+                            Console.WriteLine("Saldot på ditt {0} är nu {1} SEK", accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Transfering money to the same account does not work.");
+                            Console.ReadKey();
+                        }
+                        
+                    }
+                    else if (userInput > fundList[userIndex][index])
+                    {
+                        Console.WriteLine("Not enough funds on account. Try again with a lower value.");
+                    }
                 }
-                else if(userInput > fundList[userIndex][index])
+                else
                 {
-                    Console.WriteLine("Not enough funds on account. Try again with a lower value.");
+                    Console.WriteLine("Something went wrong.");
+                    Console.ReadKey();
                 }
             }
             testIndex = -1;
