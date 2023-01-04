@@ -35,11 +35,10 @@ class Program
         {
             mainMenu.PrintSystem();
             index = mainMenu.UseMenu(); // mainMenu, log, res
-            bool test = false;
             switch (index)
             {
                 case 0:
-                    test = logIn.UserLogin(userList);
+                    bool test = logIn.UserLogin(userList);
                     Console.Clear();
                     if(test == true)
                     {
@@ -48,7 +47,6 @@ class Program
                     break;
                 case 1:
                     resetPass.ResetPass();
-                    Console.WriteLine("Password was changed! Press any key to continue.");
                     users.UpdateList();
                     Console.ReadKey();
                     break;
@@ -289,6 +287,7 @@ class Program
 
         do
         {
+            userMenu.SetMenu(userAcc);
             userMenu.PrintSystem();
             Console.WriteLine("Select an account to transfer money from...");
             index = userMenu.UseMenu();
@@ -309,6 +308,7 @@ class Program
                         fundList[userIndex][index] -= userInput;
                         while (testIndex == -1)
                         {
+                            userMenu.PrintSystem();
                             testIndex = userMenu.UseMenu();
                         };
                         if(testIndex != index)

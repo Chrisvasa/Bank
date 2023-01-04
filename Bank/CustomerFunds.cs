@@ -27,13 +27,13 @@ namespace Bank
                 }
             }
         }
-
+        //Getter and setter for the UserFunds Jagged Array
         public decimal[][] UserFunds
         {
             get { return userFunds; }
             set { userFunds = value; }
         }
-
+        // Access funds at a specific index
         public decimal GetFundsAt(int user, int index)
         {
             return userFunds[user][index];
