@@ -44,6 +44,7 @@ class Program
                     Console.ReadKey();
                     break;
                 case 2:
+                    funds.UpdateFunds();
                     Console.WriteLine("You have exited the program. Good bye!!");
                     isTrue = false;
                     break;
@@ -126,6 +127,10 @@ class Program
                     Console.WriteLine("Du har tagit ut {0} SEK", answer);
                     Console.WriteLine("Återstående saldo {0} SEK", fundList[userIndex][index]);
                     Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("Something went wrong. Please try again.");
                 }
             }
         } while (isTrue);
@@ -218,8 +223,8 @@ class Program
                     };
                     fundList[userIndex][testIndex] += userInput;
                     print.PrintTransaction();
-                    Console.WriteLine("Du har fört över {0} SEK från {1} till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
-                    Console.WriteLine("Saldot på {0} är nu {1} SEK", accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
+                    Console.WriteLine("Du har fört över {0} SEK från {1}t till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
+                    Console.WriteLine("Saldot på ditt {0} är nu {1} SEK", accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
                 }
                 else if(userInput > fundList[userIndex][index])
                 {

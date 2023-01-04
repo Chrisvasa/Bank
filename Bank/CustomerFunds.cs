@@ -9,17 +9,23 @@ namespace Bank
     internal class CustomerFunds
     {
         protected decimal[][] userFunds = new decimal[0][];
-
+        // Reads the Funds.txt and turns it into a jagged decimal array
         public CustomerFunds()
         {
-            userFunds = new decimal[][]
+            string[] test;
+            string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Bank\Funds.txt");
+            userFunds = new decimal[userArr.Count()][];
+
+            for (int i = 0; i < userArr.Count(); i++)
             {
-            new decimal[] {2500, 500},
-            new decimal[] {6000, 500, 2700},
-            new decimal[] {13000, 250, 444, 9370},
-            new decimal[] {12750, 2440, 3, 1780,5, 23000},
-            new decimal[] {125523, 99887, 78787, 45454, 3333, 25}
-            };
+                int count = userArr[i].Split(';').Length;
+                userFunds[i] = new decimal[count];
+                for (int j = 0; j < count; j++)
+                {
+                    test = userArr[i].Split(";");
+                    userFunds[i][j] = decimal.Parse(test[j]);
+                }
+            }
         }
 
         public decimal[][] UserFunds
@@ -32,5 +38,28 @@ namespace Bank
         {
             return userFunds[user][index];
         }
+        // Updates the current funds to Funds.txt
+        public void UpdateFunds()
+        {
+            StringBuilder fundList = new StringBuilder();
+
+            for(int i = 0; i < userFunds.Length; i++) 
+            { 
+                for(int j = 0; j < userFunds[i].Length; j++)
+                {
+                    fundList.Append(userFunds[i][j]);
+                    if(j >= 0 && j < userFunds[i].Length - 1)
+                    {
+                        fundList.Append(";");
+                    }
+                }
+                if(i< userFunds.Length - 1)
+                {
+                    fundList.Append('\n');
+                }
+            }
+            File.WriteAllText(@"C:\Users\Chris\Desktop\Bank\Bank\Funds.txt", fundList.ToString());
+        }
+
     }
 }

@@ -60,6 +60,17 @@ namespace Bank
             menuArr[4] = item5;
             menuArr[5] = item6;
         }
+        public MenuSystem(string item1, string item2, string item3, string item4, string item5, string item6, string item7)
+        {
+            menuArr = new string[6];
+            menuArr[0] = item1;
+            menuArr[1] = item2;
+            menuArr[2] = item3;
+            menuArr[3] = item4;
+            menuArr[4] = item5;
+            menuArr[5] = item6;
+            menuArr[6] = item7;
+        }
         // A method that prints the menu when called
         public void PrintSystem()
         {
@@ -106,7 +117,7 @@ namespace Bank
             menuArr = menu;
         }
         // A method that allows the user to orientate around the menu
-        public int UseMenu() // MenuSystem currentMenu, Login log, Reset res
+        public int UseMenu() 
         {
             InputHandler menuInput = new InputHandler();
 

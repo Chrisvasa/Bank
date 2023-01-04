@@ -10,3 +10,7 @@ namespace Bank
     {
     }
 }
+
+// Flytta över alla konton hit?
+// Account Chrille = new account() etc
+// Getter setter för username, password

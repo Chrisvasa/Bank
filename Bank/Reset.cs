@@ -18,7 +18,7 @@ namespace Bank
         // Allows the user to change the password of an existing account
         public void ResetPass()
         {
-            Console.WriteLine("Username: ");
+            Console.Write("Username: ");
             string anwser = Console.ReadLine().ToUpper();
             string newPass = "12345";
             int user = 0;
@@ -27,7 +27,7 @@ namespace Bank
                 if (users[i,0] == anwser)
                 {
                     user = i;
-                    Console.WriteLine("Enter a new passowrd: ");
+                    Console.Write("Enter a new password: ");
                     newPass = Console.ReadLine();
                 }
             }
