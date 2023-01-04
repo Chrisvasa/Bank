@@ -9,15 +9,15 @@ namespace Bank
     internal class PrintSystem
     {
         string text;
-        //public PrintSystem()
-        //{
-        //    text = File.ReadAllText(@"CreatorTitle.txt");
-        //}
+        public PrintSystem()
+        {
+            text = File.ReadAllText(@"CreatorTitle.txt");
+        }
 
-        //public PrintSystem(string Text)
-        //{
-        //    text = Text;
-        //}
+        public PrintSystem(string Text)
+        {
+            text = Text;
+        }
 
         public string Text
         {
@@ -27,11 +27,12 @@ namespace Bank
 
         public void Print()
         {
-            DrawLength();
+            //DrawLength();
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(text);
             Console.ResetColor();
-            DrawLength();
+            //DrawLength();
         }
         // Gets text length and draws lines to match length of text
         private void DrawLength()

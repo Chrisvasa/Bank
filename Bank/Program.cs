@@ -14,14 +14,17 @@ class Program
     {
         int index;
         bool isTrue = true;
-        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton","Ta ut pengar", "Logga ut");
+        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton","Ta ut pengar", "Sätt in pengar", "Logga ut");
         MenuSystem mainMenu = new MenuSystem("Log in", "Reset Password", "Exit");
         CustomerFunds funds = new CustomerFunds();
         User users = new User();
         Login logIn = new Login();
         Reset resetPass = new Reset(users);
         string[,] userList = users.Users;
+        PrintSystem print = new PrintSystem();
 
+        print.Print();
+        Console.ReadKey();
         do
         {
             mainMenu.PrintSystem();
@@ -74,9 +77,67 @@ class Program
                     Withdraw(userIndex, funds);
                     break;
                 case 3:
+                    AddMoney(userIndex, funds);
+                    break;
+                case 4:
                     Console.WriteLine("You have exited the program. Good bye!!");
                     isTrue = false;
                     break;
+            }
+        } while (isTrue);
+    }
+
+    private static void AddMoney(int userIndex, CustomerFunds funds)
+    {
+        int index = 0;
+        bool isTrue = true;
+        MenuSystem userMenu = new MenuSystem();
+        decimal[][] fundList = funds.UserFunds;
+        string[][] accounts = new string[][]
+        {
+            new string[] {"Privatkonto", "Sparkonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
+            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
+        };
+
+        string[] userAcc = new string[accounts[userIndex].Length + 1];
+        for (int i = 0; i < accounts[userIndex].Length; i++)
+        {
+            userAcc[i] = accounts[userIndex][i];
+        }
+        userAcc[accounts[userIndex].Length] = "Gå tillbaka";
+
+        userMenu.SetMenu(userAcc);
+        decimal answer = 0;
+        string pin;
+        do
+        {
+            userMenu.PrintSystem();
+            index = userMenu.UseMenu();
+            if (index == accounts[userIndex].Length)
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("How much money do you want to deposit?");
+                answer = decimal.Parse(Console.ReadLine());
+                Console.WriteLine("Skriv in din pinkod för att bekräfta.");
+                pin = Console.ReadLine();
+                if (answer <= fundList[userIndex][index] && answer > 0 && pin == "12345")
+                {
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    fundList[userIndex][index] += answer;
+                    Console.WriteLine("Du har lagt in {0} SEK", answer);
+                    Console.WriteLine("Ditt saldo är nu {0} SEK", fundList[userIndex][index]);
+                    Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("Something went wrong. Please try again.");
+                }
             }
         } while (isTrue);
     }
