@@ -25,8 +25,8 @@ namespace Bank
         public bool UserLogin(string[,] users)
         {
             bool isTrue = true;
-            int count = 0;
-            int userLog = -1;
+            int userLog;
+            int[] userLogIndex = new int[users.Length / 2];
             do
             {
                 Console.Clear();
@@ -44,6 +44,7 @@ namespace Bank
                         {
                             PrintSystem print = new PrintSystem();
                             print.Delay("Du loggas in", 3);
+                            userLogIndex[i] = 0;
                             UserIndex = i;
                             isTrue = false;
                             return true;
@@ -51,10 +52,10 @@ namespace Bank
                         else
                         {
                             Console.WriteLine("Wrong password. Try again!");
-                            count++;
+                            userLogIndex[i] += 1;
                             Console.ReadKey();
                         }
-                        if (count >= 3)
+                        if (userLogIndex[i] >= 3)
                         {
                             Console.WriteLine("Too many attempts have been made..");
                             Console.ReadKey();

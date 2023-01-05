@@ -20,7 +20,7 @@ class Program
     {
         int index;
         bool isTrue = true;
-        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton", "Sätt in pengar", "Ta ut pengar", "Logga ut");
+        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo","Överföring mellan användare", "Överföring mellan konton", "Sätt in pengar", "Ta ut pengar", "Logga ut");
         MenuSystem mainMenu = new MenuSystem("Log in", "Reset Pincode", "Exit");
         CustomerFunds funds = new CustomerFunds();
         User users = new User();
@@ -38,9 +38,9 @@ class Program
             switch (index)
             {
                 case 0:
-                    bool test = logIn.UserLogin(userList);
+                    bool loginSuccess = logIn.UserLogin(userList);
                     Console.Clear();
-                    if(test == true)
+                    if(loginSuccess)
                     {
                         AccountsMenu(subMenu, logIn.UserIndex, funds);
                     }
@@ -73,16 +73,20 @@ class Program
                     GetAccount(userIndex, funds);
                     break;
                 case 1:
-                    AccountTransfer(userIndex, funds);
+                    Console.WriteLine("This is not yet implemented");
+                    Console.ReadKey();
                     break;
                 case 2:
+                    AccountTransfer(userIndex, funds);
+                    break;
+                case 3:
                     AddMoney(userIndex, funds);
                     break;
                     
-                case 3:
+                case 4:
                     Withdraw(userIndex, funds);
                     break;
-                case 4:
+                case 5:
                     Console.WriteLine("You have exited the program. Good bye!!");
                     isTrue = false;
                     break;
