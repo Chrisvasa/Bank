@@ -53,7 +53,7 @@ namespace Bank
                         fundList.Append(";");
                     }
                 }
-                if(i< userFunds.Length - 1)
+                if(i < userFunds.Length - 1)
                 {
                     fundList.Append('\n');
                 }

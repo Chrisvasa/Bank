@@ -20,8 +20,8 @@ class Program
     {
         int index;
         bool isTrue = true;
-        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton","Ta ut pengar", "Sätt in pengar", "Logga ut");
-        MenuSystem mainMenu = new MenuSystem("Log in", "Reset Password", "Exit");
+        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo", "Överföring mellan konton", "Sätt in pengar", "Ta ut pengar", "Logga ut");
+        MenuSystem mainMenu = new MenuSystem("Log in", "Reset Pincode", "Exit");
         CustomerFunds funds = new CustomerFunds();
         User users = new User();
         Login logIn = new Login();
@@ -71,17 +71,16 @@ class Program
             {
                 case 0:
                     GetAccount(userIndex, funds);
-                    Console.ReadKey();
                     break;
                 case 1:
                     AccountTransfer(userIndex, funds);
-                    Console.ReadKey();
                     break;
                 case 2:
-                    Withdraw(userIndex, funds);
-                    break;
-                case 3:
                     AddMoney(userIndex, funds);
+                    break;
+                    
+                case 3:
+                    Withdraw(userIndex, funds);
                     break;
                 case 4:
                     Console.WriteLine("You have exited the program. Good bye!!");
@@ -262,8 +261,9 @@ class Program
 
     private static void AccountTransfer(int userIndex, CustomerFunds funds)
     {
-        int index = 0;
-        int testIndex = -1;
+        int index;
+        int testIndex;
+        decimal userInput;
         bool isTrue = true;
         decimal[][] fundList = funds.UserFunds;
         MenuSystem userMenu = new MenuSystem();
@@ -298,32 +298,30 @@ class Program
             else
             {
                 Console.Write("Input amount to transfer: ");
-                // Fix try catch / check so amount is not to big
-                decimal userInput;
                 bool success = decimal.TryParse(Console.ReadLine(), out userInput);
                 if(success)
                 {
                     if (userInput <= fundList[userIndex][index] && userInput > 0)
                     {
-                        fundList[userIndex][index] -= userInput;
-                        while (testIndex == -1)
+                        do
                         {
                             userMenu.PrintSystem();
+                            Console.WriteLine("Choose another account to transfer money to.");
                             testIndex = userMenu.UseMenu();
-                        };
-                        if(testIndex != index)
+                        } while (testIndex == index);
+                        if(testIndex == accounts[userIndex].Length) 
+                        { 
+                            break; 
+                        }
+                        else
                         {
+                            fundList[userIndex][index] -= userInput; 
                             fundList[userIndex][testIndex] += userInput;
                             print.PrintTransaction();
                             Console.WriteLine("Du har fört över {0} SEK från {1}t till ditt {2}", userInput, accounts[userIndex][index], accounts[userIndex][testIndex]);
                             Console.WriteLine("Saldot på ditt {0} är nu {1} SEK", accounts[userIndex][testIndex], fundList[userIndex][testIndex]);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Transfering money to the same account does not work.");
                             Console.ReadKey();
                         }
-                        
                     }
                     else if (userInput > fundList[userIndex][index])
                     {
@@ -332,15 +330,45 @@ class Program
                 }
                 else
                 {
-                    Console.WriteLine("Something went wrong.");
+                    Console.WriteLine("Something went wrong with your input. Please try again.");
                     Console.ReadKey();
                 }
             }
             testIndex = -1;
-            Console.ReadLine();
         } while (isTrue);
     }
 }
+
+/* Jobba på:
+ * ----------------------------------------------------
+ * KOPPLA PINKOD VID PENGAHANTERING TILL ANVÄNDAREN
+ * > Kolla ifall pinkoden stämmer med den sparad för användaren
+ * >> Om den gör det, tillåt transaktionen
+ * >> Annars, be användaren försöka igen 
+ * >>> Ifall användaren misslyckas fler än tre gånger, loggas ut.
+ * ----------------------------------------------------
+ * ÖVERFÖRING MELLAN KONTON
+ * > Ange "kod"
+ * > Meddelande som ska skickas med överföringen << FRIVILLIG
+ * -
+ * Ifall man får en betalning från ett annat konto
+ * > Få en "notis"?
+ * > Se pengarna samt meddelandet och vem som skickat pengarna
+ *  ----------------------------------------------------
+ *  GAMBLING/CRYPTO
+ *  > Slumpat nummer som hoppar upp och ner
+ *  >> Större chans att valutan går nedåt än uppåt
+ *  > Möjlighet att investera pengar
+ *  >> Kan ta ut investeringen/Pengarna 
+ *   ----------------------------------------------------
+ *   FEL LOGIN -- LÅS UT ANVÄNDARE I X-MINUTER
+ *   > Om en användare loggar in med fel lösenord tre gånger - Lås ut i X-minuter
+ *   >> Kolla om användarnamnet är utelåst 
+ *   >> Om inte, låt användaren skriva lösenord som vanligt
+ *   >> Annars, ge varning och hur lång tid som är kvar innan nya login-försök
+ *    ----------------------------------------------------
+ *    
+ */
 
 
 /*-----------------------------------------------------------------------------------
@@ -431,12 +459,5 @@ class Program
  * - En textfil som bevarar användarnamn samt lösenord
  * - Tillåter ändringar utav lösenord som sparas mellan körningar
  * -----------------------------------------------------------------------------------
- * CaseHandler.cs (?)
- * - Klass vars uppgift är att hantera olika switch cases
- * > Metod som tar emot olika antal metoder och har 
  */
 
-/* Jobba på:
- * PrintSystems - Printa ut menyerna?
- * Fixa en simpel version på överföring / ta ut pengar
- */

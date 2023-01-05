@@ -86,7 +86,6 @@ namespace Bank
                 }
             }
             Console.WriteLine("Transaction completed. Great success!");
-            Console.ReadLine();
         }
     }
 }
