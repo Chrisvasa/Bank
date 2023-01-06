@@ -195,18 +195,11 @@ class Program
                 bool success = decimal.TryParse(Console.ReadLine(), out answer);
                 if(success)
                 {
-                    if (answer <= fundList[userIndex][index] && answer > 0)
-                    {
-                        Console.SetCursorPosition(0, Console.CursorTop - 1);
-                        fundList[userIndex][index] += answer;
-                        Console.WriteLine("Du har lagt in {0} SEK", answer);
-                        Console.WriteLine("Ditt saldo är nu {0} SEK", fundList[userIndex][index]);
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Something went wrong. Please try again.");
-                    }
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    fundList[userIndex][index] += answer;
+                    Console.WriteLine("Du har lagt in {0} SEK", answer);
+                    Console.WriteLine("Ditt saldo är nu {0} SEK", fundList[userIndex][index]);
+                    Console.ReadLine();
                 }
                 else
                 {
@@ -236,6 +229,7 @@ class Program
         {
             userMenu.PrintSystem();
             int index = userMenu.UseMenu();
+            int attempts = 0;
             if (index == accounts[userIndex].Length)
             {
                 break;
@@ -246,26 +240,44 @@ class Program
                 bool success = decimal.TryParse(Console.ReadLine(), out answer);
                 if (success)
                 {
-                    Console.WriteLine("Skriv in din pinkod för att bekräfta.");
-                    pin = Console.ReadLine();
-                    if (answer <= fundList[userIndex][index] && answer > 0 && pin == userList[userIndex, 1])
+                    if (answer <= fundList[userIndex][index] && answer > 0)
                     {
-                        //Console.SetCursorPosition(0, Console.CursorTop - 1);
-                        fundList[userIndex][index] -= answer;
-                        Console.WriteLine("Du har tagit ut {0} SEK", answer);
-                        Console.WriteLine("Återstående saldo {0} SEK", fundList[userIndex][index]);
-                        Console.ReadLine();
+                        bool transfer = true;
+                        while(attempts < 3 && transfer) // Fixa så att användaren loggas ut istället
+                        {
+                            Console.WriteLine("Skriv in din pinkod för att bekräfta.");
+                            pin = Console.ReadLine();
+                            if (pin == userList[userIndex, 1])
+                            {
+                                fundList[userIndex][index] -= answer;
+                                Console.WriteLine("Du har tagit ut {0} SEK", answer);
+                                Console.WriteLine("Återstående saldo {0} SEK", fundList[userIndex][index]);
+                                transfer = false;
+                                Console.ReadLine();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong pincode. Please try again.");
+                                attempts++;
+                                Console.ReadKey();
+                            }
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Wrong pincode. Please try again.");
+                        Console.WriteLine("Insufficient funds. Try again.");
                         Console.ReadKey();
                     }
+                    
                 }
                 else
                 {
                     Console.WriteLine("Please enter a NUMBER. Press any key to continue");
                     Console.ReadKey();
+                }
+                if(attempts >= 3) // Fixa så att användaren loggas ut istället
+                {
+                    isTrue = false;
                 }
 
             }

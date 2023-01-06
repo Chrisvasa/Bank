@@ -88,7 +88,7 @@ namespace Bank
                     Console.ResetColor();
                     Console.WriteLine("  {0}  ", menuArr[i]);
                 }
-                //Console.ResetColor();
+                Console.ResetColor();
             }
         }
         // Getter and setter for the selected index
