@@ -80,12 +80,15 @@ namespace Bank
             {
                 if (i == selectedIndex)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("[ {0} ]", menuArr[i]);
                 }
                 else
                 {
+                    Console.ResetColor();
                     Console.WriteLine("  {0}  ", menuArr[i]);
                 }
+                //Console.ResetColor();
             }
         }
         // Getter and setter for the selected index

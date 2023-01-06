@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Bank
 {
@@ -13,7 +14,16 @@ namespace Bank
         public CustomerFunds()
         {
             string[] test;
-            string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Bank\Funds.txt");
+            string[] userArr;
+            if (File.Exists(".\\Funds.txt"))
+            {
+                userArr = File.ReadAllLines(".\\Funds.txt");
+
+            }
+            else
+            {
+                userArr = File.ReadAllLines("../../../Funds.txt");
+            }
             userFunds = new decimal[userArr.Count()][];
 
             for (int i = 0; i < userArr.Count(); i++)
@@ -58,7 +68,15 @@ namespace Bank
                     fundList.Append('\n');
                 }
             }
-            File.WriteAllText(@"C:\Users\Chris\Desktop\Bank\Bank\Funds.txt", fundList.ToString());
+            if (File.Exists(".\\Funds.txt"))
+            {
+                File.WriteAllText(".\\Funds.txt", fundList.ToString());
+
+            }
+            else
+            {
+                File.WriteAllText("../../../Funds.txt", fundList.ToString());
+            }
         }
 
     }

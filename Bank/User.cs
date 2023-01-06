@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Bank
 {
@@ -14,7 +15,16 @@ namespace Bank
         // A constructor that parses and stores it in a 2d array upon initialization
         public User()
         {
-            string[] userArr = File.ReadAllLines(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt");
+            string[] userArr;
+            if (File.Exists(".\\Users.txt"))
+            {
+                userArr = File.ReadAllLines(".\\Users.txt");
+
+            }
+            else
+            {
+                userArr = File.ReadAllLines("../../../Users.txt");
+            }
             users = new string[userArr.Count(), 2];
             password = "12345";
             for (int i = 0; i < userArr.Count(); i++)
@@ -71,7 +81,15 @@ namespace Bank
                     text += "\n";
                 }
             }
-            File.WriteAllText(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt", text);
+            if (File.Exists(".\\Users.txt"))
+            {
+                File.WriteAllText(".\\Users.txt", text);
+
+            }
+            else
+            {
+                File.WriteAllText("../../../Users.txt", text);
+            }
         }
 
     }

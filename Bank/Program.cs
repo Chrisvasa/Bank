@@ -76,7 +76,6 @@ class Program
                     break;
                 case 1:
                     UserTransfers(userIndex, funds);
-                    Console.ReadKey();
                     break;
                 case 2:
                     AccountTransfer(userIndex, funds);
@@ -367,13 +366,13 @@ class Program
 
 /* Jobba på:
  * ----------------------------------------------------
- * KOPPLA PINKOD VID PENGAHANTERING TILL ANVÄNDAREN
+ * KOPPLA PINKOD VID PENGAHANTERING TILL ANVÄNDAREN -- DONE [X]
  * > Kolla ifall pinkoden stämmer med den sparad för användaren
  * >> Om den gör det, tillåt transaktionen
  * >> Annars, be användaren försöka igen 
  * >>> Ifall användaren misslyckas fler än tre gånger, loggas ut.
  * ----------------------------------------------------
- * ÖVERFÖRING MELLAN KONTON
+ * ÖVERFÖRING MELLAN KONTON -- BASICS DONE [X]
  * > Ange "kod"
  * > Meddelande som ska skickas med överföringen << FRIVILLIG
  * -
@@ -387,7 +386,7 @@ class Program
  *  > Möjlighet att investera pengar
  *  >> Kan ta ut investeringen/Pengarna 
  *   ----------------------------------------------------
- *   FEL LOGIN -- LÅS UT ANVÄNDARE I X-MINUTER
+ *   FEL LOGIN -- LÅS UT ANVÄNDARE I X-MINUTER -- BASICS DONE[X]
  *   > Om en användare loggar in med fel lösenord tre gånger - Lås ut i X-minuter
  *   >> Kolla om användarnamnet är utelåst 
  *   >> Om inte, låt användaren skriva lösenord som vanligt

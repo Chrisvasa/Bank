@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,15 @@ namespace Bank
         string text;
         public PrintSystem()
         {
-            text = File.ReadAllText(@"CreatorTitle.txt");
+            if(File.Exists(".\\CreatorTitle.txt"))
+            {
+                text = File.ReadAllText(".\\CreatorTitle.txt");
+
+            }
+            else
+            {
+                text = File.ReadAllText("../../../CreatorTitle.txt");
+            }
         }
 
         public PrintSystem(string Text)
