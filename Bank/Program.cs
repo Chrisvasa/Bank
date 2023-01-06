@@ -75,7 +75,7 @@ class Program
                     GetAccount(userIndex, funds);
                     break;
                 case 1:
-                    Console.WriteLine("This is not yet implemented");
+                    UserTransfers(userIndex, funds);
                     Console.ReadKey();
                     break;
                 case 2:
@@ -97,19 +97,91 @@ class Program
                     break;
             }
         } while (isTrue);
-        
+
+    }
+ //ÖVERFÖRING MELLAN KONTON
+ //* > Ange "kod"
+ //* > Meddelande som ska skickas med överföringen << FRIVILLIG
+ //* -
+ //* Ifall man får en betalning från ett annat konto
+ //* > Få en "notis"?
+ //* > Se pengarna samt meddelandet och vem som skickat pengarna
+    private static void UserTransfers(int userIndex, CustomerFunds funds)
+    {
+        MenuSystem userMenu = new MenuSystem();
+        User users = new User();
+        string[,] userList = users.Users;
+        decimal[][] fundList = funds.UserFunds;
+        string[][] accounts = Account.Accounts;
+        string[] userAccount = Account.ShowAccount(userIndex);
+        bool isTrue = true;
+        decimal answer;
+        userMenu.SetMenu(userAccount);
+
+        do
+        {
+            int transferIndex = CheckUsername(userList, userIndex);
+            userMenu.PrintSystem();
+            Console.WriteLine("Choose account to transfer from");
+            int index = userMenu.UseMenu();
+            if(index == accounts[userIndex].Length)
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("How much do you want to transfer?");
+                bool success = decimal.TryParse(Console.ReadLine(), out answer);
+                if(success)
+                {
+                    if(answer <= fundList[userIndex][index] && answer > 0)
+                    {
+                        fundList[transferIndex][0] += answer;
+                        fundList[userIndex][index] -= answer;
+
+                        Console.WriteLine("Transaction completed.");
+                        Console.WriteLine("You have now transfered {0} SEK to {1}", answer, userList[transferIndex,0]);
+                        isTrue = false;
+                    }
+                }
+            }
+        } while (isTrue);
+
+    }
+
+    private static int CheckUsername(string[,] userList, int userIndex)
+    {
+        int transferIndex = -1;
+        while (true)
+        {
+            Console.Write("Enter the username who you want to transfer money to: ");
+            string userName = Console.ReadLine().ToUpper();
+            for (int i = 0; i < userList.Length / 2; i++)
+            {
+                if (userName == userList[i, 0] && i != userIndex)
+                {
+                    transferIndex = i;
+                    return transferIndex;
+                }
+            }
+            if(transferIndex == -1)
+            {
+                Console.WriteLine("Enter a valid user index");
+                Console.ReadKey();
+            }
+        }
     }
 
     private static void AddMoney(int userIndex, CustomerFunds funds)
     {
-        bool isTrue = true;
         MenuSystem userMenu = new MenuSystem();
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex);
+        bool isTrue = true;
+        decimal answer;
 
         userMenu.SetMenu(userAccount);
-        decimal answer;
         do
         {
             userMenu.PrintSystem();
