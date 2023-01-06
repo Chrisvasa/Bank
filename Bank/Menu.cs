@@ -12,28 +12,28 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Bank
 {
     // A class that handles the Menu logic
-    internal class MenuSystem
+    internal class Menu
     {
         string[] menuArr = new string[3];
         int selectedIndex = 0;
         // CONSTRUCTORS for different sized menus
-        public MenuSystem() 
+        public Menu() 
         {
             selectedIndex = 0;
         }
-        public MenuSystem(string item1, string item2, string item3)
+        public Menu(string item1, string item2, string item3)
         {
             menuArr[0] = item1;
             menuArr[1] = item2;
             menuArr[2] = item3;
         }
-        public MenuSystem(string item1, string item2)
+        public Menu(string item1, string item2)
         {
             menuArr = new string[2];
             menuArr[0] = item1;
             menuArr[1] = item2;
         }
-        public MenuSystem(string item1, string item2, string item3, string item4)
+        public Menu(string item1, string item2, string item3, string item4)
         {
             menuArr = new string[4];
             menuArr[0] = item1;
@@ -41,7 +41,7 @@ namespace Bank
             menuArr[2] = item3;
             menuArr[3] = item4;
         }
-        public MenuSystem(string item1, string item2, string item3, string item4, string item5)
+        public Menu(string item1, string item2, string item3, string item4, string item5)
         {
             menuArr = new string[5];
             menuArr[0] = item1;
@@ -50,7 +50,7 @@ namespace Bank
             menuArr[3] = item4;
             menuArr[4] = item5;
         }
-        public MenuSystem(string item1, string item2, string item3, string item4, string item5, string item6)
+        public Menu(string item1, string item2, string item3, string item4, string item5, string item6)
         {
             menuArr = new string[6];
             menuArr[0] = item1;
@@ -60,7 +60,7 @@ namespace Bank
             menuArr[4] = item5;
             menuArr[5] = item6;
         }
-        public MenuSystem(string item1, string item2, string item3, string item4, string item5, string item6, string item7)
+        public Menu(string item1, string item2, string item3, string item4, string item5, string item6, string item7)
         {
             menuArr = new string[6];
             menuArr[0] = item1;

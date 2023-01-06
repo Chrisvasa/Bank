@@ -18,9 +18,9 @@ class Program
 
     private static void Bank()
     {
-        // CLASS INITILIZATION
-        MenuSystem subMenu = new MenuSystem("Se dina konton och saldo","Överföring mellan användare", "Överföring mellan konton", "Sätt in pengar", "Ta ut pengar", "Logga ut");
-        MenuSystem mainMenu = new MenuSystem("Log in", "Reset Pincode", "Exit");
+        // CLASS INITIALIZATION
+        Menu subMenu = new Menu("Se dina konton och saldo","Överföring mellan användare", "Överföring mellan konton", "Sätt in pengar", "Ta ut pengar", "Logga ut");
+        Menu mainMenu = new Menu("Log in", "Reset Pincode", "Exit");
         CustomerFunds funds = new CustomerFunds();
         User users = new User();
         Login logIn = new Login();
@@ -61,7 +61,7 @@ class Program
         } while (isTrue);
     }
 
-    private static void AccountsMenu(MenuSystem sMenu, int userIndex, CustomerFunds funds)
+    private static void AccountsMenu(Menu sMenu, int userIndex, CustomerFunds funds)
     {
         int index;
         bool isTrue = true;
@@ -108,7 +108,7 @@ class Program
  //* > Se pengarna samt meddelandet och vem som skickat pengarna
     private static void UserTransfers(int userIndex, CustomerFunds funds)
     {
-        MenuSystem userMenu = new MenuSystem();
+        Menu userMenu = new Menu();
         User users = new User();
         string[,] userList = users.Users;
         decimal[][] fundList = funds.UserFunds;
@@ -148,7 +148,7 @@ class Program
         } while (isTrue);
 
     }
-
+    // A method that checks if the username exists and is eligible 
     private static int CheckUsername(string[,] userList, int userIndex)
     {
         int transferIndex = -1;
@@ -174,7 +174,7 @@ class Program
 
     private static void AddMoney(int userIndex, CustomerFunds funds)
     {
-        MenuSystem userMenu = new MenuSystem();
+        Menu userMenu = new Menu();
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex);
@@ -221,7 +221,7 @@ class Program
 
     private static void Withdraw(int userIndex, CustomerFunds funds)
     {
-        MenuSystem userMenu = new MenuSystem();
+        Menu userMenu = new Menu();
         User users = new User();
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
@@ -275,7 +275,7 @@ class Program
 
     private static void GetAccount(int userIndex, CustomerFunds funds)
     {
-        MenuSystem userMenu = new MenuSystem();
+        Menu userMenu = new Menu();
         string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex);
         bool isTrue = true;
@@ -299,7 +299,7 @@ class Program
 
     private static void AccountTransfer(int userIndex, CustomerFunds funds)
     {
-        MenuSystem userMenu = new MenuSystem();
+        Menu userMenu = new Menu();
         PrintSystem print = new PrintSystem();
         User users = new User();
         decimal[][] fundList = funds.UserFunds;
