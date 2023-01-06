@@ -25,9 +25,9 @@ class Program
         User users = new User();
         Login logIn = new Login();
         Reset resetPass = new Reset(users);
-        string[,] userList = users.Users;
         PrintSystem print = new PrintSystem();
 
+        string[,] userList = users.Users;
         int index;
         bool isTrue = true;
 
@@ -63,7 +63,7 @@ class Program
 
     private static void AccountsMenu(MenuSystem sMenu, int userIndex, CustomerFunds funds)
     {
-        int index = 0;
+        int index;
         bool isTrue = true;
         do
         {
@@ -102,7 +102,6 @@ class Program
 
     private static void AddMoney(int userIndex, CustomerFunds funds)
     {
-        int index = 0;
         bool isTrue = true;
         MenuSystem userMenu = new MenuSystem();
         decimal[][] fundList = funds.UserFunds;
@@ -110,12 +109,11 @@ class Program
         string[] userAccount = Account.ShowAccount(userIndex);
 
         userMenu.SetMenu(userAccount);
-        decimal answer = 0;
-        string? pin;
+        decimal answer;
         do
         {
             userMenu.PrintSystem();
-            index = userMenu.UseMenu();
+            int index = userMenu.UseMenu();
             if (index == accounts[userIndex].Length)
             {
                 break;
@@ -126,9 +124,7 @@ class Program
                 bool success = decimal.TryParse(Console.ReadLine(), out answer);
                 if(success)
                 {
-                    Console.WriteLine("Skriv in din pinkod för att bekräfta.");
-                    pin = Console.ReadLine();
-                    if (answer <= fundList[userIndex][index] && answer > 0 && pin == "12345")
+                    if (answer <= fundList[userIndex][index] && answer > 0)
                     {
                         Console.SetCursorPosition(0, Console.CursorTop - 1);
                         fundList[userIndex][index] += answer;
@@ -153,20 +149,22 @@ class Program
 
     private static void Withdraw(int userIndex, CustomerFunds funds)
     {
-        int index = 0;
-        bool isTrue = true;
         MenuSystem userMenu = new MenuSystem();
+        User users = new User();
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex);
+        string[,] userList = users.GetUsers();
+        bool isTrue = true;
+        decimal answer;
+        string? pin;
+        
 
         userMenu.SetMenu(userAccount);
-        decimal answer = 0;
-        string? pin;
         do
         {
             userMenu.PrintSystem();
-            index = userMenu.UseMenu();
+            int index = userMenu.UseMenu();
             if (index == accounts[userIndex].Length)
             {
                 break;
@@ -175,11 +173,11 @@ class Program
             {
                 Console.WriteLine("How much money do you want to withdraw?");
                 bool success = decimal.TryParse(Console.ReadLine(), out answer);
-                if(success)
+                if (success)
                 {
                     Console.WriteLine("Skriv in din pinkod för att bekräfta.");
                     pin = Console.ReadLine();
-                    if (answer <= fundList[userIndex][index] && answer > 0 && pin == "12345")
+                    if (answer <= fundList[userIndex][index] && answer > 0 && pin == userList[userIndex, 1])
                     {
                         //Console.SetCursorPosition(0, Console.CursorTop - 1);
                         fundList[userIndex][index] -= answer;
@@ -205,17 +203,16 @@ class Program
 
     private static void GetAccount(int userIndex, CustomerFunds funds)
     {
-        int index = 0;
-        bool isTrue = true;
         MenuSystem userMenu = new MenuSystem();
         string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex);
+        bool isTrue = true;
         userMenu.SetMenu(userAccount);
         
         do
         {
             userMenu.PrintSystem();
-            index = userMenu.UseMenu();
+            int index = userMenu.UseMenu();
             if(index == accounts[userIndex].Length)
             {
                 break;
@@ -230,23 +227,24 @@ class Program
 
     private static void AccountTransfer(int userIndex, CustomerFunds funds)
     {
-        int index;
+        MenuSystem userMenu = new MenuSystem();
+        PrintSystem print = new PrintSystem();
+        User users = new User();
+        decimal[][] fundList = funds.UserFunds;
+        string[,] userList = users.GetUsers();
+        string[][] accounts = Account.Accounts;
+        string[] userAccount = Account.ShowAccount(userIndex);
         int testIndex;
         decimal userInput;
         bool isTrue = true;
-        decimal[][] fundList = funds.UserFunds;
-        MenuSystem userMenu = new MenuSystem();
-        PrintSystem print = new PrintSystem();
-        string[][] accounts = Account.Accounts;
-        string[] userAccount = Account.ShowAccount(userIndex);
-        userMenu.SetMenu(userAccount);
 
+        userMenu.SetMenu(userAccount);
         do
         {
             userMenu.SetMenu(userAccount);
             userMenu.PrintSystem();
             Console.WriteLine("Select an account to transfer money from...");
-            index = userMenu.UseMenu();
+            int index = userMenu.UseMenu();
             if (index == accounts[userIndex].Length)
             {
                 break;
