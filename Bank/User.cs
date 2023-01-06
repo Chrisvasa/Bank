@@ -71,7 +71,6 @@ namespace Bank
                     text += "\n";
                 }
             }
-            //Console.WriteLine(text);
             File.WriteAllText(@"C:\Users\Chris\Desktop\Bank\Bank\Users.txt", text);
         }
 

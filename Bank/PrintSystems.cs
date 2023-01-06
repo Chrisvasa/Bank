@@ -74,15 +74,15 @@ namespace Bank
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(box);
                 Console.ResetColor();
-                box += "#";
                 Console.WriteLine(loadBars);
+                box += "#";
                 if (i > 20)
                 {
                     Thread.Sleep(30);
                 }
                 else
                 {
-                    Thread.Sleep(150);
+                    Thread.Sleep(120);
                 }
             }
             Console.WriteLine("Transaction completed. Great success!");

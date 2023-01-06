@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,7 @@ namespace Bank
             get { return userIndex; } 
             set { userIndex = value; }
         }
+
         /*A method to handle user login
          *Takes the 2d array of users
          *First checks if username is on the list, and then prompts for the password
@@ -27,6 +30,7 @@ namespace Bank
             bool isTrue = true;
             int userLog;
             int[] userLogIndex = new int[users.Length / 2];
+            DateTime startTime = DateTime.Now;
             do
             {
                 Console.Clear();
@@ -38,29 +42,36 @@ namespace Bank
                     if (users[i, 0] == userName)
                     {
                         userLog = i;
-                        Console.Write("Password: ");
-                        string password = Console.ReadLine();
-                        if (users[i, 1] == password)
+                        if (userLogIndex[i] >= 3)
                         {
-                            PrintSystem print = new PrintSystem();
-                            print.Delay("Du loggas in", 3);
-                            userLogIndex[i] = 0;
-                            UserIndex = i;
-                            isTrue = false;
-                            return true;
+                            Console.WriteLine("Try again later..");
+                            Counter(startTime);
+                            Console.ReadKey();
                         }
                         else
                         {
-                            Console.WriteLine("Wrong password. Try again!");
-                            userLogIndex[i] += 1;
-                            Console.ReadKey();
-                        }
-                        if (userLogIndex[i] >= 3)
-                        {
-                            Console.WriteLine("Too many attempts have been made..");
-                            Console.ReadKey();
-                            Environment.Exit(0);
-                            isTrue = false;
+                            Console.Write("Password: ");
+                            string? password = Console.ReadLine();
+                            if (users[i, 1] == password)
+                            {
+                                PrintSystem print = new PrintSystem();
+                                print.Delay("Du loggas in", 3);
+                                userLogIndex[i] = 0;
+                                UserIndex = i;
+                                isTrue = false;
+                                return true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong password. Try again!");
+                                userLogIndex[i] += 1;
+                                Console.ReadKey();
+                            }
+                            if (userLogIndex[i] >= 3)
+                            {
+                                Console.WriteLine("Too many attempts have been made. Please try again in 3 minutes");
+                                Console.ReadKey();
+                            }
                         }
                     }
                 }
@@ -72,6 +83,32 @@ namespace Bank
             } while (isTrue);
             return false;
 
+        }
+
+        private void Counter(DateTime startTime)
+        {
+            // startTime 
+
+            DateTime currentTime = DateTime.Now;
+            TimeSpan timeRemaining = currentTime - startTime;
+            switch(timeRemaining.Minutes)
+            {
+                case 0:
+                    Console.WriteLine("3 minutes remaining..");
+                    break;
+                case 1:
+                    Console.WriteLine("2 minutes remaining..");
+                    break;
+                case 2:
+                    Console.WriteLine("1 minute remaining..");
+                    break;
+                case 3:
+                    Console.WriteLine("You should be able to login now");
+                    break;
+                default:
+                    Console.WriteLine();
+                    break;
+            }
         }
     }
 }

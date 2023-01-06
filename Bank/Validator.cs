@@ -9,7 +9,7 @@ namespace Bank
     internal class Validator
     {
         // Only accepts input with letters, else keeps asking
-        public bool TextValidator(string input, string printMessage) 
+        public static bool TextValidator(string? input, string printMessage) 
         {
             do
             {
@@ -20,7 +20,7 @@ namespace Bank
             return true;
         }
 
-        public int PincodeValidator(string input, string printMessage)
+        public static int PincodeValidator(string input, string printMessage)
         {
             bool success = int.TryParse(input, out int result);
             if (success)

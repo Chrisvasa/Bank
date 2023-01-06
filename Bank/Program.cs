@@ -18,8 +18,7 @@ class Program
 
     private static void Bank()
     {
-        int index;
-        bool isTrue = true;
+        // CLASS INITILIZATION
         MenuSystem subMenu = new MenuSystem("Se dina konton och saldo","Överföring mellan användare", "Överföring mellan konton", "Sätt in pengar", "Ta ut pengar", "Logga ut");
         MenuSystem mainMenu = new MenuSystem("Log in", "Reset Pincode", "Exit");
         CustomerFunds funds = new CustomerFunds();
@@ -28,6 +27,9 @@ class Program
         Reset resetPass = new Reset(users);
         string[,] userList = users.Users;
         PrintSystem print = new PrintSystem();
+
+        int index;
+        bool isTrue = true;
 
         print.Print();
         Console.ReadKey();
@@ -78,13 +80,16 @@ class Program
                     break;
                 case 2:
                     AccountTransfer(userIndex, funds);
+                    funds.UpdateFunds();
                     break;
                 case 3:
                     AddMoney(userIndex, funds);
+                    funds.UpdateFunds();
                     break;
                     
                 case 4:
                     Withdraw(userIndex, funds);
+                    funds.UpdateFunds();
                     break;
                 case 5:
                     Console.WriteLine("You have exited the program. Good bye!!");
@@ -101,25 +106,12 @@ class Program
         bool isTrue = true;
         MenuSystem userMenu = new MenuSystem();
         decimal[][] fundList = funds.UserFunds;
-        string[][] accounts = new string[][]
-        {
-            new string[] {"Privatkonto", "Sparkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
-        };
+        string[][] accounts = Account.Accounts;
+        string[] userAccount = Account.ShowAccount(userIndex);
 
-        string[] userAcc = new string[accounts[userIndex].Length + 1];
-        for (int i = 0; i < accounts[userIndex].Length; i++)
-        {
-            userAcc[i] = accounts[userIndex][i];
-        }
-        userAcc[accounts[userIndex].Length] = "Gå tillbaka";
-
-        userMenu.SetMenu(userAcc);
+        userMenu.SetMenu(userAccount);
         decimal answer = 0;
-        string pin;
+        string? pin;
         do
         {
             userMenu.PrintSystem();
@@ -165,25 +157,12 @@ class Program
         bool isTrue = true;
         MenuSystem userMenu = new MenuSystem();
         decimal[][] fundList = funds.UserFunds;
-        string[][] accounts = new string[][]
-        {
-            new string[] {"Privatkonto", "Sparkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
-        };
+        string[][] accounts = Account.Accounts;
+        string[] userAccount = Account.ShowAccount(userIndex);
 
-        string[] userAcc = new string[accounts[userIndex].Length + 1];
-        for (int i = 0; i < accounts[userIndex].Length; i++)
-        {
-            userAcc[i] = accounts[userIndex][i];
-        }
-        userAcc[accounts[userIndex].Length] = "Gå tillbaka";
-
-        userMenu.SetMenu(userAcc);
+        userMenu.SetMenu(userAccount);
         decimal answer = 0;
-        string pin;
+        string? pin;
         do
         {
             userMenu.PrintSystem();
@@ -229,23 +208,9 @@ class Program
         int index = 0;
         bool isTrue = true;
         MenuSystem userMenu = new MenuSystem();
-        string[][] accounts = new string[][]
-        {
-            new string[] {"Privatkonto", "Sparkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
-        };
-
-        string[] userAcc = new string[accounts[userIndex].Length + 1];
-        for(int i = 0; i < accounts[userIndex].Length; i++)
-        {
-            userAcc[i] = accounts[userIndex][i];
-        }
-        userAcc[accounts[userIndex].Length] = "Gå tillbaka";
-
-        userMenu.SetMenu(userAcc);
+        string[][] accounts = Account.Accounts;
+        string[] userAccount = Account.ShowAccount(userIndex);
+        userMenu.SetMenu(userAccount);
         
         do
         {
@@ -272,26 +237,13 @@ class Program
         decimal[][] fundList = funds.UserFunds;
         MenuSystem userMenu = new MenuSystem();
         PrintSystem print = new PrintSystem();
-        string[][] accounts = new string[][]
-        {
-            new string[] {"Privatkonto", "Sparkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
-        };
-
-        string[] userAcc = new string[accounts[userIndex].Length + 1];
-        for (int i = 0; i < accounts[userIndex].Length; i++)
-        {
-            userAcc[i] = accounts[userIndex][i];
-        }
-        userAcc[accounts[userIndex].Length] = "Gå tillbaka";
-        userMenu.SetMenu(userAcc);
+        string[][] accounts = Account.Accounts;
+        string[] userAccount = Account.ShowAccount(userIndex);
+        userMenu.SetMenu(userAccount);
 
         do
         {
-            userMenu.SetMenu(userAcc);
+            userMenu.SetMenu(userAccount);
             userMenu.PrintSystem();
             Console.WriteLine("Select an account to transfer money from...");
             index = userMenu.UseMenu();
