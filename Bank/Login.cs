@@ -55,7 +55,7 @@ namespace Bank
                             if (users[i, 1] == password)
                             {
                                 PrintSystem print = new PrintSystem();
-                                print.Delay("Du loggas in", 3);
+                                print.Delay("You are being logged in", 3);
                                 userLogIndex[i] = 0;
                                 UserIndex = i;
                                 isTrue = false;

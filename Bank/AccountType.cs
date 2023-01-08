@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
+    // Different AccountTypes 
+    // Free = 2 accounts
+    // Basic = 3 accounts etc
     enum AccountType
     {
-        PrivatKonto,
-        SparKonto,
-        LöneKonto,
-        SpelKonto,
-        AktieKonto,
-        MatKonto
+        Free,
+        Basic,
+        Business,
+        BusinessPremium,
+        Exclusive
     }
 }

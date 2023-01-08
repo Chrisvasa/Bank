@@ -8,6 +8,26 @@ namespace Bank
 {
     internal class Account
     {
+        // REWRITE 
+        /* Account class functions
+         * These are something every account should have
+         * > Check funds
+         * >> Lets user check funds at given account
+         * > Deposit funds
+         * >> Lets user deposit funds into a given account
+         * > Withdraw funds
+         * >> Lets user withdraw funds from a given account
+         * > Transfer money between accounts
+         * >> Lets user transfer money between his own accounts
+         * > Transfer money between users
+         * >> Lets user transfer money to other users
+         * -----------------------------------------------------
+         * Things to think about
+         * - Users/Customers have varying amounts of accounts
+         * - From 2 to 6 
+         * - 
+         * 
+         */
         protected static string[][] accounts = new string[][]
         {
             new string[] {"Privatkonto", "Sparkonto"},
