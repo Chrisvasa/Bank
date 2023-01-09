@@ -30,11 +30,11 @@ namespace Bank
          */
         protected static string[][] accounts = new string[][]
         {
-            new string[] {"Privatkonto", "Sparkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto"},
-            new string[] {"Privatkonto", "Sparkonto", "Lönekonto", "Spelkonto", "Aktiekonto", "Matkonto"}
+            new string[] {"Private Account", "Savings"},
+            new string[] {"Private Account", "Savings", "Payroll"},
+            new string[] {"Private Account", "Savings", "Payroll", "Gambling"},
+            new string[] {"Private Account", "Savings", "Payroll", "Gambling", "Shares & Stocks"},
+            new string[] {"Private Account", "Savings", "Payroll", "Gambling", "Shares & Stocks", "TBD"}
         };
 
         public static string[][] Accounts

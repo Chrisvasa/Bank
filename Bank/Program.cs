@@ -20,7 +20,7 @@ class Program
     private static void Bank()
     {
         // CLASS INITIALIZATION
-        Menu customerMenu = new Menu("Accounts and balance","Transfer to another user", "Transfer between accounts", "Deposit funds", "Withdraw funds", "Log out");
+        Menu customerMenu = new Menu("Check Accounts and Balance", "Transfer between accounts", "Transfer to another user", "Withdraw funds", "Deposit funds", "Log out");
         Menu mainMenu = new Menu("Log in", "Reset Pincode", "Exit");
         CustomerFunds funds = new CustomerFunds();
         User users = new User();
@@ -37,7 +37,7 @@ class Program
         do
         {
             mainMenu.PrintSystem();
-            index = mainMenu.UseMenu(); // mainMenu, log, res
+            index = mainMenu.UseMenu();
             switch (index)
             {
                 case 0:
@@ -69,26 +69,26 @@ class Program
         do
         {
             customMenu.PrintSystem();
-            int index = customMenu.UseMenu(); // subMenu, log, res
+            int index = customMenu.UseMenu();
             switch (index)
             {
                 case 0:
                     CheckAccountFunds(userIndex, funds);
                     break;
                 case 1:
-                    UserTransfers(userIndex, funds);
-                    funds.UpdateFunds();
-                    break;
-                case 2:
                     AccountTransfer(userIndex, funds);
                     funds.UpdateFunds();
                     break;
+                case 2:
+                    UserTransfers(userIndex, funds);
+                    funds.UpdateFunds();
+                    break;
                 case 3:
-                    Deposit(userIndex, funds);
+                    Withdraw(userIndex, funds);
                     funds.UpdateFunds();
                     break;
                 case 4:
-                    Withdraw(userIndex, funds);
+                    Deposit(userIndex, funds);
                     funds.UpdateFunds();
                     break;
                 case 5:
@@ -121,79 +121,6 @@ class Program
                 Console.ReadLine();
             }
         } while (isTrue);
-    }
-
-    //ÖVERFÖRING MELLAN KONTON
-    //* > Ange "kod"
-    //* > Meddelande som ska skickas med överföringen << FRIVILLIG
-    //* -
-    //* Ifall man får en betalning från ett annat konto
-    //* > Få en "notis"?
-    //* > Se pengarna samt meddelandet och vem som skickat pengarna
-    private static void UserTransfers(int userIndex, CustomerFunds funds)
-    {
-        Menu userMenu = new Menu();
-        User users = new User();
-        string[,] userList = users.Users;
-        decimal[][] fundList = funds.UserFunds;
-        string[][] accounts = Account.Accounts;
-        string[] userAccount = Account.ShowAccount(userIndex);
-        bool isTrue = true;
-        userMenu.SetMenu(userAccount);
-
-        do
-        {
-            int transferIndex = CheckUsername(userList, userIndex);
-            userMenu.PrintSystem();
-            Console.WriteLine("Choose account to transfer from");
-            int index = userMenu.UseMenu();
-            if(index == accounts[userIndex].Length)
-            {
-                break;
-            }
-            else
-            {
-                Console.WriteLine("How much do you want to transfer?");
-                bool success = decimal.TryParse(Console.ReadLine(), out decimal answer);
-                if(success)
-                {
-                    if(answer <= fundList[userIndex][index] && answer > 0)
-                    {
-                        fundList[transferIndex][0] += answer;
-                        fundList[userIndex][index] -= answer;
-                        PrintSystem.PrintTransaction();
-                        Console.WriteLine();
-                        Console.WriteLine("You have now transfered {0} SEK to {1}", answer, userList[transferIndex,0]);
-                        Console.ReadKey();
-                        isTrue = false;
-                    }
-                }
-            }
-        } while (isTrue);
-    }
-
-    // A method that checks if the username exists and is eligible 
-    private static int CheckUsername(string[,] userList, int userIndex)
-    {
-        int transferIndex = -1;
-        while (true)
-        {
-            Console.Write("Enter the username who you want to transfer money to: ");
-            string userName = Console.ReadLine().ToUpper();
-            for (int i = 0; i < userList.Length / 2; i++)
-            {
-                if (userName == userList[i, 0] && i != userIndex)
-                {
-                    transferIndex = i;
-                    return transferIndex;
-                }
-            }
-            if(transferIndex == -1)
-            {
-                Console.WriteLine("Enter a valid username");
-                Console.ReadKey();
-            }
-        }
     }
 
     private static void AccountTransfer(int userIndex, CustomerFunds funds)
@@ -259,18 +186,22 @@ class Program
         } while (isTrue);
     }
 
-    private static void Deposit(int userIndex, CustomerFunds funds)
+    private static void UserTransfers(int userIndex, CustomerFunds funds)
     {
         Menu userMenu = new Menu();
+        User users = new User();
+        string[,] userList = users.Users;
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex);
         bool isTrue = true;
-
         userMenu.SetMenu(userAccount);
+
         do
         {
+            int transferIndex = CheckUsername(userList, userIndex);
             userMenu.PrintSystem();
+            Console.WriteLine("Choose account to transfer from");
             int index = userMenu.UseMenu();
             if (index == accounts[userIndex].Length)
             {
@@ -278,24 +209,47 @@ class Program
             }
             else
             {
-                Console.WriteLine("How much money do you want to deposit?");
+                Console.WriteLine("How much do you want to transfer?");
                 bool success = decimal.TryParse(Console.ReadLine(), out decimal answer);
-                if(success)
+                if (success)
                 {
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);
-                    fundList[userIndex][index] += answer;
-                    Console.WriteLine("You have deposited: {0} SEK", answer);
-                    Console.WriteLine("Updated balance is now: {0} SEK", fundList[userIndex][index]);
-                    Console.ReadLine();
+                    if (answer <= fundList[userIndex][index] && answer > 0)
+                    {
+                        fundList[transferIndex][0] += answer;
+                        fundList[userIndex][index] -= answer;
+                        PrintSystem.PrintTransaction();
+                        Console.WriteLine();
+                        Console.WriteLine("You have now transfered {0} SEK to {1}", answer, userList[transferIndex, 0]);
+                        Console.ReadKey();
+                        isTrue = false;
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Something went wrong.");
-                    Console.ReadKey();
-                }
-                
             }
         } while (isTrue);
+    }
+
+    // A method that checks if the username exists and is eligible 
+    private static int CheckUsername(string[,] userList, int userIndex)
+    {
+        int transferIndex = -1;
+        while (true)
+        {
+            Console.Write("Enter the username who you want to transfer money to: ");
+            string userName = Console.ReadLine().ToUpper();
+            for (int i = 0; i < userList.Length / 2; i++)
+            {
+                if (userName == userList[i, 0] && i != userIndex)
+                {
+                    transferIndex = i;
+                    return transferIndex;
+                }
+            }
+            if (transferIndex == -1)
+            {
+                Console.WriteLine("Enter a valid username");
+                Console.ReadKey();
+            }
+        }
     }
 
     private static void Withdraw(int userIndex, CustomerFunds funds)
@@ -364,6 +318,44 @@ class Program
                 {
                     isTrue = false;
                 }
+            }
+        } while (isTrue);
+    }
+    private static void Deposit(int userIndex, CustomerFunds funds)
+    {
+        Menu userMenu = new Menu();
+        decimal[][] fundList = funds.UserFunds;
+        string[][] accounts = Account.Accounts;
+        string[] userAccount = Account.ShowAccount(userIndex);
+        bool isTrue = true;
+
+        userMenu.SetMenu(userAccount);
+        do
+        {
+            userMenu.PrintSystem();
+            int index = userMenu.UseMenu();
+            if (index == accounts[userIndex].Length)
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("How much money do you want to deposit?");
+                bool success = decimal.TryParse(Console.ReadLine(), out decimal answer);
+                if (success)
+                {
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    fundList[userIndex][index] += answer;
+                    Console.WriteLine("You have deposited: {0} SEK", answer);
+                    Console.WriteLine("Updated balance is now: {0} SEK", fundList[userIndex][index]);
+                    Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("Something went wrong.");
+                    Console.ReadKey();
+                }
+
             }
         } while (isTrue);
     }

@@ -51,16 +51,16 @@ namespace Bank
             set { users = value; }
         }
 
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
+        //public string Password
+        //{
+        //    get { return password; }
+        //    set { password = value; }
+        //}
         // Changes the password at given index
-        public void ChangePassword(int index)
-        {
-            users[index, 1] = password;
-        }
+        //public void ChangePassword(int index)
+        //{
+        //    users[index, 1] = password;
+        //}
         // Updates the Users.txt file with changed values
         public void UpdateList()
         {

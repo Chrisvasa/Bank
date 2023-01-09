@@ -34,10 +34,14 @@ namespace Bank
             
             do
             {
-                Console.Clear();
-                Console.Write("Enter your username: ");
+                string userName = "";
+                while (String.IsNullOrEmpty(userName))
+                {
+                    Console.Clear();
+                    Console.Write("Enter your username: ");
+                    userName = Console.ReadLine().ToUpper();
+                }
                 userLog = -1;
-                string userName = Console.ReadLine().ToUpper();
                 for (int i = 0; i < users.Length / 2; i++)
                 {
                     if (users[i, 0] == userName)
