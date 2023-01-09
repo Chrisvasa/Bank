@@ -60,7 +60,7 @@ namespace Bank
             {
                 userAcc[i] = accounts[user][i];
             }
-            userAcc[accounts[user].Length] = "Gå tillbaka";
+            userAcc[accounts[user].Length] = "Go back";
             return userAcc;
         }
     }

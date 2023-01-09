@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Dynamic;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Bank;
@@ -76,6 +77,7 @@ class Program
                     break;
                 case 1:
                     UserTransfers(userIndex, funds);
+                    funds.UpdateFunds();
                     break;
                 case 2:
                     AccountTransfer(userIndex, funds);
@@ -131,6 +133,7 @@ class Program
     {
         Menu userMenu = new Menu();
         User users = new User();
+        PrintSystem print = new PrintSystem();
         string[,] userList = users.Users;
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
@@ -159,9 +162,10 @@ class Program
                     {
                         fundList[transferIndex][0] += answer;
                         fundList[userIndex][index] -= answer;
-
-                        Console.WriteLine("Transaction completed.");
+                        print.PrintTransaction();
+                        Console.WriteLine();
                         Console.WriteLine("You have now transfered {0} SEK to {1}", answer, userList[transferIndex,0]);
+                        Console.ReadKey();
                         isTrue = false;
                     }
                 }
@@ -187,7 +191,7 @@ class Program
             }
             if(transferIndex == -1)
             {
-                Console.WriteLine("Enter a valid user index");
+                Console.WriteLine("Enter a valid username");
                 Console.ReadKey();
             }
         }
