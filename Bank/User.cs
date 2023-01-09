@@ -19,7 +19,6 @@ namespace Bank
             if (File.Exists(".\\Users.txt"))
             {
                 userArr = File.ReadAllLines(".\\Users.txt");
-
             }
             else
             {
@@ -84,7 +83,6 @@ namespace Bank
             if (File.Exists(".\\Users.txt"))
             {
                 File.WriteAllText(".\\Users.txt", text);
-
             }
             else
             {

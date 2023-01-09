@@ -125,7 +125,7 @@ namespace Bank
             InputHandler menuInput = new InputHandler();
 
             ConsoleKey key;
-            bool test = false;
+            bool usingMenu = true;
             do
             {
                 key = menuInput.ReadInput();
@@ -139,12 +139,11 @@ namespace Bank
                 }
                 else if (key == ConsoleKey.Enter || key == ConsoleKey.Spacebar)
                 {
-                    test = true;
                     break;
                 }
                 Console.Clear();
                 PrintSystem();
-            } while (test == false);
+            } while (usingMenu);
             return selectedIndex;
         }
     }

@@ -55,7 +55,7 @@ namespace Bank
 
         // A simple function that prints out three dots after a given userInput
         // Also takes input on how many times to execute
-        public void Delay(string textInput, int timesToRun)
+        public static void Delay(string textInput, int timesToRun)
         {
             for(int i = 0; i < timesToRun; i++)
             {
@@ -71,7 +71,7 @@ namespace Bank
             }
         }
         // Prints out a progress bar in the console when called for
-        public void PrintTransaction()
+        public static void PrintTransaction()
         {
             string loadBars = "------------------------------------";
             string box = "#";

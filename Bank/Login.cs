@@ -29,8 +29,8 @@ namespace Bank
         {
             int[] userLogIndex = new int[users.Length / 2]; // Array to keep track of login-attempts per user
             DateTime[] userTimers = new DateTime[userLogIndex.Length]; // Array to keep track of timeouts per user
-            bool isTrue = true;
             int userLog; // A variable used to check if username was found
+            bool isTrue = true;
             
             do
             {
@@ -42,10 +42,10 @@ namespace Bank
                 {
                     if (users[i, 0] == userName)
                     {
-                        userLog = i;
+                        userLog = i; // To see if username exists
                         if (userLogIndex[i] >= 3)
                         {
-                            bool login = Counter(i, userTimers);
+                            bool login = TimeOut(i, userTimers);
                             if(login)
                             {
                                 userLogIndex[i] = 0;
@@ -56,17 +56,14 @@ namespace Bank
                             }
                             Console.ReadKey();
                         }
-                        else
+                        if (userLogIndex[i] < 3)
                         {
                             Console.Write("Password: ");
                             string? password = Console.ReadLine();
                             if (users[i, 1] == password)
                             {
-                                PrintSystem print = new PrintSystem();
-                                print.Delay("You are being logged in", 3);
-                                userLogIndex[i] = 0;
+                                PrintSystem.Delay("You are being logged in", 3);
                                 UserIndex = i;
-                                isTrue = false;
                                 return true;
                             }
                             else
@@ -93,14 +90,14 @@ namespace Bank
                 }
             } while (isTrue);
             return false;
-
         }
+
         // Method that handles the timeouts that users get after 3 wrongful login attempts
         // If user attempts to login after 3 minutes, this returns true and allows login attempts to be made again
-        private bool Counter(int userIndex, DateTime[] userTimers)
+        private static bool TimeOut(int userIndex, DateTime[] userTimers)
         {
-            // startTime 
-            if(userTimers[userIndex] == new DateTime()) // Check if empty
+            // Check if empty else set time once this method runs
+            if (userTimers[userIndex] == new DateTime()) 
             {
                 userTimers[userIndex] = DateTime.Now;
             }
@@ -118,7 +115,6 @@ namespace Bank
                     Console.WriteLine("1 minute remaining..");
                     break;
                 default:
-                    Console.WriteLine("You should be able to login now");
                     return true;
             }
             return false;
