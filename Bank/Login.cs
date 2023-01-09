@@ -35,7 +35,7 @@ namespace Bank
             do
             {
                 string userName = "";
-                while (String.IsNullOrEmpty(userName))
+                while (String.IsNullOrEmpty(userName)) 
                 {
                     Console.Clear();
                     Console.Write("Enter your username: ");
@@ -97,7 +97,8 @@ namespace Bank
         }
 
         // Method that handles the timeouts that users get after 3 wrongful login attempts
-        // If user attempts to login after 3 minutes, this returns true and allows login attempts to be made again
+        // A DateTime array that handles different lockouts for different users
+        // Once 3 minutes have passed, this returns true
         private static bool TimeOut(int userIndex, DateTime[] userTimers)
         {
             // Check if empty else set time once this method runs

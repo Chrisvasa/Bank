@@ -8,12 +8,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        //string test = "";
-        //while (String.IsNullOrEmpty(test))
-        //{
-        //    Console.WriteLine("Input something");
-        //    test = Console.ReadLine();
-        //}
         Bank();
     }
 
@@ -34,6 +28,7 @@ class Program
 
         print.Print();
         Console.ReadKey();
+        // A menu with 3 options that allows the user to login, reset pincode or exit the program
         do
         {
             mainMenu.PrintSystem();
@@ -61,7 +56,8 @@ class Program
             }
         } while (isTrue);
     }
-
+    // The menu that is ran when a user has managed to login
+    // Then calls for all the different methods that run all the banks different use cases
     private static void AccountsMenu(Menu customMenu, int userIndex, CustomerFunds funds)
     {
         bool isTrue = true;
@@ -98,7 +94,7 @@ class Program
             }
         } while (isTrue);
     }
-
+    // Allows user to see their balance
     private static void CheckAccountFunds(int userIndex, CustomerFunds funds)
     {
         Menu userMenu = new Menu();
@@ -122,7 +118,9 @@ class Program
             }
         } while (isTrue);
     }
-
+    // Allows the user to transfer money between their own accounts
+    // User can select an account with their keys, and then enter the amount to transfer
+    // Then the user can select an account to recieve the funds (Will prompt again if selecting the same account)
     private static void AccountTransfer(int userIndex, CustomerFunds funds)
     {
         Menu userMenu = new Menu();
@@ -185,7 +183,13 @@ class Program
             //recieverIndex = -1;
         } while (isTrue);
     }
-
+    // Allows transfers between different users
+    // First prompts user to enter which user to transfer funds to
+    // After user has:
+    // > Selected an account to transfer money from,
+    // > Entered a valid amount,
+    // > Entered their pincode correctly
+    // Then this will transfer money into recieving users Private account - Aka their 0-index account
     private static void UserTransfers(int userIndex, CustomerFunds funds)
     {
         Menu userMenu = new Menu();
@@ -229,6 +233,8 @@ class Program
     }
 
     // A method that checks if the username exists and is eligible 
+    // If username exists, returns their index-value 
+    // Else prompts user to enter a valid username
     private static int CheckUsername(string[,] userList, int userIndex)
     {
         int transferIndex = -1;
@@ -251,7 +257,11 @@ class Program
             }
         }
     }
-
+    // Allows user to withdraw funds from their account
+    // After selecting an account, the user will be prompted with the amount
+    // If the amount and pincode are valid, withdraw is success
+    // Else asks user to try again
+    // After 3 failed pincode attempts, throws user back
     private static void Withdraw(int userIndex, CustomerFunds funds)
     {
         Menu userMenu = new Menu();
@@ -259,7 +269,7 @@ class Program
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex);
-        string[,] userList = users.GetUsers();
+        string[,] userList = users.GetUsers(); // Used to validate pincode
         bool isTrue = true;
         string? pin;
 
@@ -321,6 +331,8 @@ class Program
             }
         } while (isTrue);
     }
+    // Allows user to deposit money into specified accounts
+    // After user selects an account, asks for how much to deposit
     private static void Deposit(int userIndex, CustomerFunds funds)
     {
         Menu userMenu = new Menu();
