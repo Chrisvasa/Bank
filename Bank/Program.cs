@@ -106,14 +106,16 @@ class Program
     {
         Menu userMenu = new Menu();
         string[][] accounts = Account.Accounts;
-        string[] userAccount = Account.ShowAccount(userIndex);
-        userMenu.SetMenu(userAccount);
+        string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
+        userMenu.SetMenu(userAccount); // Sets the menuArray to show userAccounts 
         bool isTrue = true;
 
         do
         {
             userMenu.PrintSystem();
             int index = userMenu.UseMenu();
+            // Checks if user has selected last option in accounts menu 
+            // Which will always be an option to go back, if selected - breaks the loop 
             if (index == accounts[userIndex].Length)
             {
                 break;
@@ -133,7 +135,7 @@ class Program
         Menu userMenu = new Menu();
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
-        string[] userAccount = Account.ShowAccount(userIndex);
+        string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
         int recieverIndex;
         bool isTrue = true;
 
@@ -144,6 +146,8 @@ class Program
             userMenu.PrintSystem();
             Console.WriteLine("Select an account to transfer money from...");
             int index = userMenu.UseMenu();
+            // Checks if user has selected last option in accounts menu 
+            // Which will always be an option to go back, if selected - breaks the loop 
             if (index == accounts[userIndex].Length)
             {
                 break;
@@ -204,7 +208,7 @@ class Program
         string[,] userList = users.Users;
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
-        string[] userAccount = Account.ShowAccount(userIndex);
+        string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
         bool isTrue = true;
         userMenu.SetMenu(userAccount);
 
@@ -214,6 +218,8 @@ class Program
             userMenu.PrintSystem();
             Console.WriteLine("Choose account to transfer from");
             int index = userMenu.UseMenu();
+            // Checks if user has selected last option in accounts menu 
+            // Which will always be an option to go back, if selected - breaks the loop 
             if (index == accounts[userIndex].Length)
             {
                 break;
@@ -275,7 +281,7 @@ class Program
         User users = new User();
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
-        string[] userAccount = Account.ShowAccount(userIndex);
+        string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
         string[,] userList = users.GetUsers(); // Used to validate pincode
         bool isTrue = true;
         string? pin;
@@ -286,6 +292,8 @@ class Program
             userMenu.PrintSystem();
             int index = userMenu.UseMenu();
             int attempts = 0;
+            // Checks if user has selected last option in accounts menu 
+            // Which will always be an option to go back, if selected - breaks the loop 
             if (index == accounts[userIndex].Length)
             {
                 break;
@@ -345,7 +353,7 @@ class Program
         Menu userMenu = new Menu();
         decimal[][] fundList = funds.UserFunds;
         string[][] accounts = Account.Accounts;
-        string[] userAccount = Account.ShowAccount(userIndex);
+        string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
         bool isTrue = true;
 
         userMenu.SetMenu(userAccount);
@@ -353,6 +361,8 @@ class Program
         {
             userMenu.PrintSystem();
             int index = userMenu.UseMenu();
+            // Checks if user has selected last option in accounts menu 
+            // Which will always be an option to go back, if selected - breaks the loop 
             if (index == accounts[userIndex].Length)
             {
                 break;

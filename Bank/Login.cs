@@ -42,8 +42,6 @@ namespace Bank
                     userName = Console.ReadLine().ToUpper();
                 }
                 userLog = 0;
-                Console.WriteLine(users.Length /3 );
-                Console.ReadKey();
                 for (int i = 0; i < users.Length / 3; i++)
                 {
                     if (users[i, 0] == userName)

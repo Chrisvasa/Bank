@@ -52,7 +52,8 @@ namespace Bank
             }
             return accArray;
         }
-
+        // Creates an account array and adds the "Go back" at the end of the array
+        // Used to show different accounts as a menu
         public static string[] ShowAccount(int user)
         {
             string[] userAcc = new string[accounts[user].Length + 1];
