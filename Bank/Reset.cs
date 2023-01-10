@@ -20,7 +20,7 @@ namespace Bank
         {
             Console.Write("Username: ");
             string anwser = Console.ReadLine().ToUpper();
-            for (int i = 0; i < users.Length / 2; i++) // Loops through the array of users
+            for (int i = 0; i < users.Length / 3; i++) // Loops through the array of users
             {
                 if (users[i,0] == anwser)
                 {

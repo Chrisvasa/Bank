@@ -21,6 +21,15 @@ namespace Bank
         {
             selectedIndex = 0;
         }
+
+        public Menu(string[] items)
+        {
+            menuArr = new string[items.Length];
+            for (int i = 0; i < items.Length; i++)
+            {
+                menuArr[i] = items[i];
+            }
+        }
         public Menu(string item1, string item2, string item3)
         {
             menuArr[0] = item1;
