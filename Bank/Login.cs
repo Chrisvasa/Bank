@@ -27,7 +27,7 @@ namespace Bank
          *Locks user out after three failed attempts */
         public bool UserLogin(string[,] users)
         {
-            int[] userLogIndex = new int[users.Length / 2]; // Array to keep track of login-attempts per user
+            int[] userLogIndex = new int[users.Length / 3]; // Array to keep track of login-attempts per user
             DateTime[] userTimers = new DateTime[userLogIndex.Length]; // Array to keep track of timeouts per user
             int userLog; // A variable used to check if username was found
             bool isTrue = true;
@@ -41,12 +41,14 @@ namespace Bank
                     Console.Write("Enter your username: ");
                     userName = Console.ReadLine().ToUpper();
                 }
-                userLog = -1;
-                for (int i = 0; i < users.Length / 2; i++)
+                userLog = 0;
+                Console.WriteLine(users.Length /3 );
+                Console.ReadKey();
+                for (int i = 0; i < users.Length / 3; i++)
                 {
                     if (users[i, 0] == userName)
                     {
-                        userLog = i; // To see if username exists
+                        userLog = 1; // To see if username exists
                         if (userLogIndex[i] >= 3)
                         {
                             bool login = TimeOut(i, userTimers);
@@ -57,8 +59,8 @@ namespace Bank
                             else
                             {
                                 Console.WriteLine("Try again later..");
+                                Console.ReadKey();
                             }
-                            Console.ReadKey();
                         }
                         if (userLogIndex[i] < 3)
                         {
@@ -87,7 +89,7 @@ namespace Bank
                         }
                     }
                 }
-                if(userLog < 0)
+                if(userLog == 0)
                 {
                     Console.WriteLine("Username not found. Press any key to try again.");
                     Console.ReadKey();

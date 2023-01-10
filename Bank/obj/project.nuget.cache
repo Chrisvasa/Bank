@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rXdJGR1ehCGcB23H96kCRJT4Ueq1JLYXmcen+HX7I0jClSPt/cwb9pFQV88r/geBDA9zp1H2/bj4kR/ko2Sp1Q==",
+  "dgSpecHash": "g4oGx8su+S9qk/po1b/9Q4i3RaMjUAo/r8WK1XKC3TFtVWf/irALDyoSHNyQSzbFv2XejP8FpDw/YpL4OqmO9g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Chris\\Desktop\\Bank\\Bank\\Bank.csproj",
+  "projectFilePath": "C:\\Users\\Chris\\Desktop\\bankclone\\Bank\\Bank\\Bank.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

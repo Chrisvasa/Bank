@@ -10,19 +10,20 @@ class Program
     {
         Bank();
     }
-
+    //TODO:
+    // Läs bara in två decimaler - N2
     private static void Bank()
     {
         // CLASS INITIALIZATION
-        Menu customerMenu = new Menu("Check Accounts and Balance", "Transfer between accounts", "Transfer to another user", "Withdraw funds", "Deposit funds", "Log out");
-        Menu mainMenu = new Menu("Log in", "Reset Pincode", "Exit");
+        Menu customerMenu = new Menu(new string[] { "Check Accounts and Balance", "Transfer between accounts", "Transfer to another user", "Withdraw funds", "Deposit funds", "Log out" });
+        Menu mainMenu = new Menu("Log in", "Reset Pincode", "Create new Account", "Exit");
         CustomerFunds funds = new CustomerFunds();
         User users = new User();
         Login logIn = new Login();
         Reset resetPass = new Reset(users);
         PrintSystem print = new PrintSystem();
+        AccountCreator userCreate = new AccountCreator();
 
-        string[,] userList = users.Users;
         int index;
         bool isTrue = true;
 
@@ -31,6 +32,8 @@ class Program
         // A menu with 3 options that allows the user to login, reset pincode or exit the program
         do
         {
+            //Load user
+            string[,] userList = users.Users;
             mainMenu.PrintSystem();
             index = mainMenu.UseMenu();
             switch (index)
@@ -49,6 +52,10 @@ class Program
                     Console.ReadKey();
                     break;
                 case 2:
+                    userCreate.CreateCustomer();
+                    //users.UpdateList();
+                    break;
+                case 3:
                     funds.UpdateFunds();
                     Console.WriteLine("You have exited the program. Good bye!!");
                     isTrue = false;
@@ -114,7 +121,7 @@ class Program
             else
             {
                 Console.WriteLine("Current balance: {0:N2} SEK.", funds.GetFundsAt(userIndex, index));
-                Console.ReadLine();
+                Console.ReadKey();
             }
         } while (isTrue);
     }

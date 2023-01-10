@@ -24,11 +24,11 @@ namespace Bank
             {
                 userArr = File.ReadAllLines("../../../Users.txt");
             }
-            users = new string[userArr.Count(), 2];
+            users = new string[userArr.Count(), 3];
             password = "12345";
             for (int i = 0; i < userArr.Count(); i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     var numbers = userArr[i].Split(',');
                     users[i, j] = numbers[j];
@@ -61,21 +61,29 @@ namespace Bank
         //{
         //    users[index, 1] = password;
         //}
+
+        // Skapa load()
+        // Som läser in users när man kallar på den
+
         // Updates the Users.txt file with changed values
         public void UpdateList()
         {
             string text = "";
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < users.Length / 3; i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     text += users[i, j];
                     if(j == 0)
                     {
                         text += ", ";
                     }
+                    else if(j == 1)
+                    {
+                        text += ",";
+                    }
                 }
-                if(i < 4)
+                if(i < users.Length / 3 - 1)
                 {
                     text += "\n";
                 }
