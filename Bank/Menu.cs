@@ -16,12 +16,10 @@ namespace Bank
     {
         string[] menuArr = new string[3];
         int selectedIndex = 0;
-        // CONSTRUCTORS for different sized menus
         public Menu() 
         {
             selectedIndex = 0;
         }
-
         public Menu(string[] items)
         {
             menuArr = new string[items.Length];
@@ -30,56 +28,7 @@ namespace Bank
                 menuArr[i] = items[i];
             }
         }
-        public Menu(string item1, string item2, string item3)
-        {
-            menuArr[0] = item1;
-            menuArr[1] = item2;
-            menuArr[2] = item3;
-        }
-        public Menu(string item1, string item2)
-        {
-            menuArr = new string[2];
-            menuArr[0] = item1;
-            menuArr[1] = item2;
-        }
-        public Menu(string item1, string item2, string item3, string item4)
-        {
-            menuArr = new string[4];
-            menuArr[0] = item1;
-            menuArr[1] = item2;
-            menuArr[2] = item3;
-            menuArr[3] = item4;
-        }
-        public Menu(string item1, string item2, string item3, string item4, string item5)
-        {
-            menuArr = new string[5];
-            menuArr[0] = item1;
-            menuArr[1] = item2;
-            menuArr[2] = item3;
-            menuArr[3] = item4;
-            menuArr[4] = item5;
-        }
-        public Menu(string item1, string item2, string item3, string item4, string item5, string item6)
-        {
-            menuArr = new string[6];
-            menuArr[0] = item1;
-            menuArr[1] = item2;
-            menuArr[2] = item3;
-            menuArr[3] = item4;
-            menuArr[4] = item5;
-            menuArr[5] = item6;
-        }
-        public Menu(string item1, string item2, string item3, string item4, string item5, string item6, string item7)
-        {
-            menuArr = new string[6];
-            menuArr[0] = item1;
-            menuArr[1] = item2;
-            menuArr[2] = item3;
-            menuArr[3] = item4;
-            menuArr[4] = item5;
-            menuArr[5] = item6;
-            menuArr[6] = item7;
-        }
+
         // A method that prints the menu when called
         public void PrintSystem()
         {
@@ -100,6 +49,7 @@ namespace Bank
                 Console.ResetColor();
             }
         }
+
         // Getter and setter for the selected index
         public int SelectIndex
         {
@@ -111,17 +61,6 @@ namespace Bank
                     selectedIndex = value;
                 }
             }
-        }
-
-        public string[] GetMenu()
-        {
-            return menuArr;
-        }
-
-        public void SetMenu(int menuCount, string[] menuItems)
-        {
-            menuArr = new string[menuCount];
-            menuArr = menuItems;
         }
 
         public void SetMenu(string[] menu)

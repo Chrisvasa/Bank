@@ -8,84 +8,120 @@ namespace Bank
 {
     internal class AccountCreator
     {
-        User userList = new User();
         private string userName = "";
         private string pincode = "";
-        private string accType = "";
+        private string selectedAccountType = "";
         
         public void CreateCustomer()
         {
-            Menu creatorMenu = new Menu("Set Username", "Set Pincode", "Set Account Type", "Go back");
-            bool isTrue = true;
+            Menu AccountCreatorMenu = new Menu(new string[] { "Set Username", "Set Pincode", "Set Account Type", "Create the account", "Go back" });
+            bool IsRunning = true;
 
-            creatorMenu.PrintSystem();
+            AccountCreatorMenu.PrintSystem();
             do
             {
-                int index = creatorMenu.UseMenu();
+                int index = AccountCreatorMenu.UseMenu();
                 switch(index)
                 {
                     case 0:
-                        SetName();
+                        SetUsername();
                         break;
                     case 1:
-                        SetPin();
+                        SetPincode();
                         break;
                     case 2:
                         SetAccountType();
                         break;
                     case 3:
-                        UpdateUserList();
-                        isTrue = false;
+                        CreateAccount();
+                        break;
+                    case 4:
+                        IsRunning = false;
                         break;
                 }
-                creatorMenu.PrintSystem();
-            } while (isTrue);
+                AccountCreatorMenu.PrintSystem();
+            } while (IsRunning);
         }
 
-        private void SetName()
+        private void SetUsername()
         {
-            Console.Clear();
-            Console.Write("Enter username:");
-            this.userName = Console.ReadLine();
+            while (String.IsNullOrEmpty(userName))
+            {
+                Console.Clear();
+                Console.Write("Enter Username:");
+                userName = Console.ReadLine();
+            };
         }
 
-        private void SetPin()
+        private void SetPincode()
         {
-            Console.Clear();
-            Console.Write("Enter username:");
-            this.pincode = Console.ReadLine();
+            while (String.IsNullOrEmpty(pincode))
+            {
+                Console.Clear();
+                Console.Write("Enter Pincode:");
+                pincode = Console.ReadLine();
+            };
         }
 
         private void SetAccountType()
         {
-            Menu accountMenu = new Menu("Free", "Basic", "Business", "Business Premium", "Exclusive", "Go back");
-            bool isTrue = true;
+            Menu accountMenu = new Menu(new string[] { "Free", "Basic", "Business", "Business Premium", "Exclusive", "Go back" });
             accountMenu.PrintSystem();
-            do
+            while (String.IsNullOrEmpty(selectedAccountType))
             {
                 int index = accountMenu.UseMenu();
                 switch(index)
                 {
                     case 0:
-                        this.accType = " Free";
+                        selectedAccountType = " Free";
                         break;
                     case 1:
-                        this.accType = " Basic";
+                        selectedAccountType = " Basic";
                         break;
                     case 2:
-                        this.accType = " Business";
+                        selectedAccountType = " Business";
                         break;
                     case 3:
-                        this.accType = " BusinessPremium";
+                        selectedAccountType = " BusinessPremium";
                         break;
                     case 4:
-                        this.accType = " Exclusive";
+                        selectedAccountType = " Exclusive";
                         break;
                     case 5:
+                        Console.WriteLine("Please select an account type before exiting");
                         break;
                 }
-                isTrue = false;
-            } while (isTrue);
+            };
+        }
+
+        private void CreateAccount()
+        {
+            if(!String.IsNullOrWhiteSpace(userName) || !String.IsNullOrWhiteSpace(pincode) || !String.IsNullOrWhiteSpace(selectedAccountType))
+            {
+                Console.Clear();
+                Console.WriteLine("Are you sure you want to create your account?");
+                Console.WriteLine("Double check your input:");
+                Console.WriteLine("Username: {0}\nPincode: {1}\nAccount Type:{2}", userName, pincode, selectedAccountType);
+                Console.WriteLine("Press [Y] if you want to confirm account creation. Otherwise press [N]");
+                Char answer = Console.ReadKey(true).KeyChar;
+
+                if (answer == 'Y' || answer == 'y')
+                {
+                    UpdateUserList();
+                    Console.WriteLine("Your account was successfully created. Press any key to continue.");
+                    Console.ReadKey(true);
+                    userName = "";
+                    pincode = "";
+                    selectedAccountType = "";
+
+                }
+            }
+            else
+            {
+                //Console.WriteLine("Please enter some data to create an account.");
+                Console.WriteLine("Make sure you have not missed to fill in any data.");
+                Console.ReadKey();
+            }
         }
         /* Takes the User and Funds arrays and 
          * creates temporary new ones with the old array size + 1. 
@@ -99,26 +135,27 @@ namespace Bank
         private void UpdateUserList()
         {
             //The logic that handles the Users.txt
-            int size = userList.Users.Length / 3;
+            User UserList = new User();
+            int size = UserList.Users.Length / 3;
             string[,] tempUserList = new string[size + 1, 3];
-            for(int i = 0; i < userList.Users.Length / 3; i++)
+            for(int i = 0; i < UserList.Users.Length / 3; i++)
             {
                 for(int j = 0; j < 3; j++)
                 {
-                    tempUserList[i, j] = userList.Users[i, j];
+                    tempUserList[i, j] = UserList.Users[i, j];
                 }
             }
             // Adds the newly created account to the end of the array
             tempUserList[size, 0] = userName.ToUpper();
             tempUserList[size, 1] = pincode;
-            tempUserList[size, 2] = accType; // The account type 
-            userList.Users = tempUserList;
-            userList.UpdateList();
+            tempUserList[size, 2] = selectedAccountType; // The account type 
+            UserList.Users = tempUserList;
+            UserList.UpdateList();
             // The logic that handles Funds.txt
-            CustomerFunds fundList = new CustomerFunds();
-            int accountType = (int)Enum.Parse(typeof(AccountType), accType); // Gets the amount of accounts that the specified account type has
-            int listLength = fundList.UserFunds.Length + 1;
-            decimal[][] listedFunds = fundList.UserFunds;
+            CustomerFunds FundList = new CustomerFunds();
+            int accountType = (int)Enum.Parse(typeof(AccountType), selectedAccountType); // Gets the amount of accounts that the specified account type has
+            int listLength = FundList.UserFunds.Length + 1;
+            decimal[][] listedFunds = FundList.UserFunds;
             decimal[][] tempFundList = new decimal[listLength][];
             // Loops through the listLength
             for(int i = 0; i < listLength; i++)
@@ -139,12 +176,12 @@ namespace Bank
                     tempFundList[i] = new decimal[listedFunds[i].Length];
                     for (int h = 0; h < listedFunds[i].Length; h++)
                     {
-                        tempFundList[i][h] = fundList.UserFunds[i][h];
+                        tempFundList[i][h] = FundList.UserFunds[i][h];
                     }
                 }
             }
-            fundList.UserFunds = tempFundList;
-            fundList.UpdateFunds();
+            FundList.UserFunds = tempFundList;
+            FundList.UpdateFunds();
         }
 
             

@@ -9,7 +9,6 @@ namespace Bank
 {
     internal class Account
     {
-        // 
         protected static string[][] accounts = new string[][]
         {
             new string[] {"Private Account", "Savings"},
@@ -22,7 +21,6 @@ namespace Bank
         public static string[][] Accounts
         {
             get { return accounts; }
-            set { accounts = value; }
         }
 
         public static string[] GetAccount(int user)
@@ -33,15 +31,6 @@ namespace Bank
             return accounts[accountIndex];
         }
 
-        //public static string[] GetAccount(int user)
-        //{
-        //    string[] accArray = new string[accounts[user].Length];
-        //    for(int i = 0; i < accounts[user].Length; i++)
-        //    {
-        //        accArray[i] += accounts[user][i];
-        //    }
-        //    return accArray;
-        //}
         // Creates an account array and adds the "Go back" at the end of the array
         // Used to show different accounts as a menu
         public static string[] ShowAccount(int user)

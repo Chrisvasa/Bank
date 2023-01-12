@@ -23,34 +23,12 @@ namespace Bank
             }
         }
 
-        public PrintSystem(string Text)
+        public void PrintWelcome()
         {
-            text = Text;
-        }
-
-        public string Text
-        {
-            get { return text; }
-            set { text = value; }
-        }
-
-        public void Print()
-        {
-            //DrawLength();
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(text);
             Console.ResetColor();
-            //DrawLength();
-        }
-        // Gets text length and draws lines to match length of text
-        private void DrawLength()
-        {
-            for (int i = 0; i < text.Length; i++)
-            {
-                Console.Write("-");
-            }
-            Console.WriteLine();
         }
 
         // A simple function that prints out three dots after a given userInput

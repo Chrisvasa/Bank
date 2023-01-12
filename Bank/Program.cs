@@ -15,106 +15,101 @@ class Program
     private static void Bank()
     {
         // CLASS INITIALIZATION
-        Menu customerMenu = new Menu(new string[] { "Check Accounts and Balance", "Transfer between accounts", "Transfer to another user", "Withdraw funds", "Deposit funds", "Log out" });
-        Menu mainMenu = new Menu("Log in", "Reset Pincode", "Create new Account", "Exit");
-        CustomerFunds funds = new CustomerFunds();
-        User users = new User();
-        Login logIn = new Login();
-        Reset resetPass = new Reset(users);
-        PrintSystem print = new PrintSystem();
-        AccountCreator userCreate = new AccountCreator();
+        //Menu class allows for easy creation of console menus. 
+        Menu CustomerMenu = new Menu(new string[] { "Check Accounts and Balance", "Transfer between accounts", "Transfer to another user", "Withdraw funds", "Deposit funds", "Log out" });
+        Menu BankMenu = new Menu(new string[] { "Log in", "Reset Pincode", "Create new Account", "Exit" });
+        CustomerFunds FundManager = new CustomerFunds();
+        User UserManager = new User();
+        Login LoginSystem = new Login();
+        PrintSystem Printer = new PrintSystem();
+        AccountCreator AccountCreator = new AccountCreator();
+        bool IsRunning = true;
 
-        int index;
-        bool isTrue = true;
-
-        print.Print();
+        Printer.PrintWelcome();
         Console.ReadKey();
         // A menu with 3 options that allows the user to login, reset pincode or exit the program
         do
         {
-            users.LoadUser();
-            funds.LoadFunds();
-            string[,] userList = users.Users;
-            mainMenu.PrintSystem();
-            index = mainMenu.UseMenu();
+            string[,] userList = UserManager.Users;
+            UserManager.LoadUser(); // Loads in 
+            FundManager.LoadFunds();
+            BankMenu.PrintSystem();
+            int index = BankMenu.UseMenu(); // Returns index of selected menu choice
             switch (index)
             {
                 case 0:
-                    bool loginSuccess = logIn.UserLogin(userList);
-                    Console.Clear();
-                    if(loginSuccess)
+                    if (LoginSystem.UserLogin(userList))
                     {
-                        AccountsMenu(customerMenu, logIn.UserIndex, funds);
+                        AccountsMenu(CustomerMenu, LoginSystem.UserIndex, FundManager);
                     }
                     break;
                 case 1:
-                    resetPass.ResetPin();
-                    users.UpdateList();
-                    Console.ReadKey();
+                    UserManager.ResetPin();
+                    UserManager.UpdateList();
                     break;
                 case 2:
-                    userCreate.CreateCustomer();
-                    //users.UpdateList();
+                    AccountCreator.CreateCustomer();
                     break;
                 case 3:
-                    funds.UpdateFunds();
+                    FundManager.UpdateFunds();
                     Console.WriteLine("You have exited the program. Good bye!!");
-                    isTrue = false;
+                    IsRunning = false;
                     break;
             }
-        } while (isTrue);
+        } while (IsRunning);
     }
+
     // The menu that is ran when a user has managed to login
     // Then calls for all the different methods that run all the banks different use cases
-    private static void AccountsMenu(Menu customMenu, int userIndex, CustomerFunds funds)
+    private static void AccountsMenu(Menu CustomerMenu, int userIndex, CustomerFunds FundManager)
     {
-        bool isTrue = true;
-        customMenu.SelectIndex = 0;
-        do
+        bool IsRunning = true;
+        CustomerMenu.SelectIndex = 0;
+        while (IsRunning)
         {
-            customMenu.PrintSystem();
-            int index = customMenu.UseMenu();
+            CustomerMenu.PrintSystem();
+            int index = CustomerMenu.UseMenu(); // Returns index of selected menu choice
             switch (index)
             {
                 case 0:
-                    CheckAccountFunds(userIndex, funds);
+                    CheckAccountFunds(userIndex, FundManager);
                     break;
                 case 1:
-                    AccountTransfer(userIndex, funds);
-                    funds.UpdateFunds();
+                    AccountTransfer(userIndex, FundManager);
+                    FundManager.UpdateFunds();
                     break;
                 case 2:
-                    UserTransfers(userIndex, funds);
-                    funds.UpdateFunds();
+                    UserTransfers(userIndex, FundManager);
+                    FundManager.UpdateFunds();
                     break;
                 case 3:
-                    Withdraw(userIndex, funds);
-                    funds.UpdateFunds();
+                    Withdraw(userIndex, FundManager);
+                    FundManager.UpdateFunds();
                     break;
                 case 4:
-                    Deposit(userIndex, funds);
-                    funds.UpdateFunds();
+                    Deposit(userIndex, FundManager);
+                    FundManager.UpdateFunds();
                     break;
                 case 5:
                     Console.WriteLine("You have exited the program. Good bye!!");
-                    isTrue = false;
+                    IsRunning = false;
                     break;
             }
-        } while (isTrue);
+        };
     }
     // Allows user to see their balance
     private static void CheckAccountFunds(int userIndex, CustomerFunds funds)
     {
-        Menu userMenu = new Menu();
-        string[][] accounts = Account.Accounts;
+        Menu UserMenu = new Menu();
         string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
-        userMenu.SetMenu(userAccount); // Sets the menuArray to show userAccounts 
-        bool isTrue = true;
+        UserMenu.SetMenu(userAccount); // Sets the menuArray to show userAccounts 
+        bool IsRunning = true;
 
-        do
+        while (IsRunning)
         {
-            userMenu.PrintSystem();
-            int index = userMenu.UseMenu();
+            UserMenu.PrintSystem();
+            // Returns index of selected menu choice
+            int index = UserMenu.UseMenu();
             // Checks if user has selected last option in accounts menu 
             // Which will always be an option to go back, if selected - breaks the loop 
             if (index == Account.GetAccount(userIndex).Length)
@@ -126,7 +121,7 @@ class Program
                 Console.WriteLine("Current balance: {0:N2} SEK.", funds.GetFundsAt(userIndex, index));
                 Console.ReadKey();
             }
-        } while (isTrue);
+        };
     }
     // Allows the user to transfer money between their own accounts
     // User can select an account with their keys, and then enter the amount to transfer
@@ -134,17 +129,17 @@ class Program
     private static void AccountTransfer(int userIndex, CustomerFunds funds)
     {
         Menu userMenu = new Menu();
-        decimal[][] fundList = funds.UserFunds;
-        string[][] accounts = Account.Accounts;
+        decimal[] fundList = funds.GetUserFunds(userIndex);
+        string[] accounts = Account.GetAccount(userIndex); // Account.GetAccount(userIndex) <-- istället?
         string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
+        bool IsRunning = true;
         int recieverIndex;
-        bool isTrue = true;
 
         userMenu.SetMenu(userAccount);
-        do
+        while (IsRunning)
         {
             userMenu.SetMenu(userAccount);
-            userMenu.PrintSystem();
+            userMenu.PrintSystem(); // Returns index of selected menu choice
             Console.WriteLine("Select an account to transfer money from...");
             int index = userMenu.UseMenu();
             // Checks if user has selected last option in accounts menu 
@@ -159,29 +154,29 @@ class Program
                 bool success = decimal.TryParse(Console.ReadLine(), out decimal userInput);
                 if (success)
                 {
-                    if (userInput <= fundList[userIndex][index] && userInput > 0)
+                    if (userInput <= fundList[index] && userInput > 0)
                     {
                         do
                         {
                             userMenu.PrintSystem();
                             Console.WriteLine("Choose another account to transfer money to.");
-                            recieverIndex = userMenu.UseMenu();
+                            recieverIndex = userMenu.UseMenu(); // Returns index of selected menu choice
                         } while (recieverIndex == index);
-                        if (recieverIndex == accounts[userIndex].Length)
+                        if (recieverIndex == Account.GetAccount(userIndex).Length)
                         {
                             break;
                         }
-                        else
+                        else // CHECKA HÄR -- Kraschar på nya användare när man försöker skicka pengar till ett annat
                         {
-                            fundList[userIndex][index] -= userInput;
-                            fundList[userIndex][recieverIndex] += userInput;
+                            fundList[index] -= userInput;
+                            fundList[recieverIndex] += userInput;
                             PrintSystem.PrintTransaction();
-                            Console.WriteLine("You have transfered: {0} SEK from {1} to {2}", userInput, accounts[userIndex][index], accounts[userIndex][recieverIndex]);
-                            Console.WriteLine("The balance on your {0} is now: {1} SEK", accounts[userIndex][recieverIndex], fundList[userIndex][recieverIndex]);
+                            Console.WriteLine("You have transfered: {0} SEK from {1} to {2}", userInput, accounts[index], accounts[recieverIndex]);
+                            Console.WriteLine("The balance on your {0} is now: {1} SEK", accounts[recieverIndex], fundList[recieverIndex]);
                             Console.ReadKey();
                         }
                     }
-                    else if (userInput > fundList[userIndex][index])
+                    else if (userInput > fundList[index])
                     {
                         Console.WriteLine("Not enough funds on account. Try again with a lower value.");
                     }
@@ -193,7 +188,7 @@ class Program
                 }
             }
             //recieverIndex = -1;
-        } while (isTrue);
+        }
     }
     // Allows transfers between different users
     // First prompts user to enter which user to transfer funds to
@@ -208,24 +203,23 @@ class Program
         User users = new User();
         string[,] userList = users.Users;
         decimal[][] fundList = funds.UserFunds;
-        string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
-        bool isTrue = true;
+        bool IsRunning = true;
         userMenu.SetMenu(userAccount);
 
-        do
+        while (IsRunning)
         {
             int transferIndex = CheckUsername(userList, userIndex);
             userMenu.PrintSystem();
             Console.WriteLine("Choose account to transfer from");
-            int index = userMenu.UseMenu();
+            int index = userMenu.UseMenu(); // Returns index of selected menu choice
             // Checks if user has selected last option in accounts menu 
             // Which will always be an option to go back, if selected - breaks the loop 
             if (index == Account.GetAccount(userIndex).Length)
             {
                 break;
             }
-            else
+            else // ASK FOR PIN
             {
                 Console.WriteLine("How much do you want to transfer?");
                 bool success = decimal.TryParse(Console.ReadLine(), out decimal answer);
@@ -239,11 +233,11 @@ class Program
                         Console.WriteLine();
                         Console.WriteLine("You have now transfered {0} SEK to {1}", answer, userList[transferIndex, 0]);
                         Console.ReadKey();
-                        isTrue = false;
+                        IsRunning = false;
                     }
                 }
             }
-        } while (isTrue);
+        }
     }
 
     // A method that checks if the username exists and is eligible 
@@ -281,7 +275,6 @@ class Program
         Menu userMenu = new Menu();
         User users = new User();
         decimal[][] fundList = funds.UserFunds;
-        string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
         string[,] userList = users.GetUsers(); // Used to validate pincode
         bool isTrue = true;
@@ -353,7 +346,6 @@ class Program
     {
         Menu userMenu = new Menu();
         decimal[][] fundList = funds.UserFunds;
-        string[][] accounts = Account.Accounts;
         string[] userAccount = Account.ShowAccount(userIndex); // Gets a string array containing the current users accounts
         bool isTrue = true;
 

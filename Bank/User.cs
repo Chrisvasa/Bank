@@ -11,7 +11,6 @@ namespace Bank
     internal class User
     {
         protected string[,] users = new string[0, 0];
-        protected string password;
         // A constructor that parses and stores it in a 2d array upon initialization
         public User()
         {
@@ -29,9 +28,8 @@ namespace Bank
             {
                 userArr = File.ReadAllLines("../../../Users.txt");
             }
-            users = new string[userArr.Count(), 3];
-            password = "12345";
-            for (int i = 0; i < userArr.Count(); i++)
+            users = new string[userArr.Length, 3];
+            for (int i = 0; i < userArr.Length; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
@@ -60,20 +58,31 @@ namespace Bank
         {
             return users[index, 2];
         }
-
-        //public string Password
-        //{
-        //    get { return password; }
-        //    set { password = value; }
-        //}
-        // Changes the password at given index
-        //public void ChangePassword(int index)
-        //{
-        //    users[index, 1] = password;
-        //}
-
-        // Skapa load()
-        // Som läser in users när man kallar på den
+        public void ResetPin()
+        {
+            Console.Clear();
+            Console.Write("Username: ");
+            string anwser = Console.ReadLine().ToUpper();
+            for (int i = 0; i < users.Length / 3; i++) // Loops through the array of users
+            {
+                if (users[i, 0] == anwser)
+                {
+                    Console.Write("Enter a new pincode: ");
+                    bool success = int.TryParse(Console.ReadLine(), out int newPass);
+                    if (success)
+                    {
+                        users[i, 1] = newPass.ToString();
+                        Console.WriteLine("Pincode was changed. Press any key to continue.");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Pincode must contain NUMBERS only! Try again.");
+                        Console.ReadKey();
+                    }
+                }
+            }
+        }
 
         // Updates the Users.txt file with changed values
         public void UpdateList()

@@ -15,7 +15,7 @@ namespace Bank
         {
             LoadFunds();
         }
-
+        // Reads in the data from Funds.txt and places it in an array
         public void LoadFunds()
         {
             string[] test;
@@ -28,9 +28,9 @@ namespace Bank
             {
                 userArr = File.ReadAllLines("../../../Funds.txt");
             }
-            userFunds = new decimal[userArr.Count()][];
+            userFunds = new decimal[userArr.Length][];
 
-            for (int i = 0; i < userArr.Count(); i++)
+            for (int i = 0; i < userArr.Length; i++)
             {
                 int count = userArr[i].Split(';').Length;
                 userFunds[i] = new decimal[count];
@@ -51,6 +51,11 @@ namespace Bank
         public decimal GetFundsAt(int user, int index)
         {
             return userFunds[user][index];
+        }
+
+        public decimal[] GetUserFunds(int user)
+        {
+            return userFunds[user];
         }
         // Updates the current funds to Funds.txt
         public void UpdateFunds()
