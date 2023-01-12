@@ -3,5 +3,5 @@ BOB, 4321, Basic
 BILLY, 123, Business
 TJACK-KALLE, 12345, BusinessPremium
 HERMAN, 12345, Exclusive
-TEST, 1337, BusinessPremium
 TESTER, 1337, Business
+LEO, 1337, Exclusive

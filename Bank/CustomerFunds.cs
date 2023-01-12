@@ -13,6 +13,11 @@ namespace Bank
         // Reads the Funds.txt and turns it into a jagged decimal array
         public CustomerFunds()
         {
+            LoadFunds();
+        }
+
+        public void LoadFunds()
+        {
             string[] test;
             string[] userArr;
             if (File.Exists(".\\Funds.txt"))

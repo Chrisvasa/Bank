@@ -15,6 +15,11 @@ namespace Bank
         // A constructor that parses and stores it in a 2d array upon initialization
         public User()
         {
+            LoadUser();
+        }
+
+        public void LoadUser()
+        {
             string[] userArr;
             if (File.Exists(".\\Users.txt"))
             {
@@ -49,6 +54,11 @@ namespace Bank
         { 
             get { return users; } 
             set { users = value; }
+        }
+
+        public string GetUserInfo(int index)
+        {
+            return users[index, 2];
         }
 
         //public string Password

@@ -26,12 +26,14 @@ class Program
 
         int index;
         bool isTrue = true;
+
         print.Print();
         Console.ReadKey();
         // A menu with 3 options that allows the user to login, reset pincode or exit the program
         do
         {
-            //Load user
+            users.LoadUser();
+            funds.LoadFunds();
             string[,] userList = users.Users;
             mainMenu.PrintSystem();
             index = mainMenu.UseMenu();
@@ -115,7 +117,7 @@ class Program
             int index = userMenu.UseMenu();
             // Checks if user has selected last option in accounts menu 
             // Which will always be an option to go back, if selected - breaks the loop 
-            if (index == accounts[userIndex].Length)
+            if (index == Account.GetAccount(userIndex).Length)
             {
                 break;
             }
@@ -147,7 +149,7 @@ class Program
             int index = userMenu.UseMenu();
             // Checks if user has selected last option in accounts menu 
             // Which will always be an option to go back, if selected - breaks the loop 
-            if (index == accounts[userIndex].Length)
+            if (index == Account.GetAccount(userIndex).Length)
             {
                 break;
             }
@@ -219,7 +221,7 @@ class Program
             int index = userMenu.UseMenu();
             // Checks if user has selected last option in accounts menu 
             // Which will always be an option to go back, if selected - breaks the loop 
-            if (index == accounts[userIndex].Length)
+            if (index == Account.GetAccount(userIndex).Length)
             {
                 break;
             }
@@ -293,7 +295,7 @@ class Program
             int attempts = 0;
             // Checks if user has selected last option in accounts menu 
             // Which will always be an option to go back, if selected - breaks the loop 
-            if (index == accounts[userIndex].Length)
+            if (index == Account.GetAccount(userIndex).Length)
             {
                 break;
             }
@@ -362,7 +364,7 @@ class Program
             int index = userMenu.UseMenu();
             // Checks if user has selected last option in accounts menu 
             // Which will always be an option to go back, if selected - breaks the loop 
-            if (index == accounts[userIndex].Length)
+            if (index == Account.GetAccount(userIndex).Length)
             {
                 break;
             }

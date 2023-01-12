@@ -87,10 +87,18 @@ namespace Bank
                 isTrue = false;
             } while (isTrue);
         }
-
+        /* Takes the User and Funds arrays and 
+         * creates temporary new ones with the old array size + 1. 
+         * ------------------------------------------------------
+         * Fills the temporary array with the old values 
+         * and adds the newly created account at the end
+         * -----------------------------------------------------
+         * Then replaces the old array with the newly created one
+         * And then updates the text files with the new values
+         */
         private void UpdateUserList()
         {
-            CustomerFunds fundList = new CustomerFunds();
+            //The logic that handles the Users.txt
             int size = userList.Users.Length / 3;
             string[,] tempUserList = new string[size + 1, 3];
             for(int i = 0; i < userList.Users.Length / 3; i++)
@@ -100,28 +108,34 @@ namespace Bank
                     tempUserList[i, j] = userList.Users[i, j];
                 }
             }
+            // Adds the newly created account to the end of the array
             tempUserList[size, 0] = userName.ToUpper();
             tempUserList[size, 1] = pincode;
-            tempUserList[size, 2] = accType;
+            tempUserList[size, 2] = accType; // The account type 
             userList.Users = tempUserList;
             userList.UpdateList();
-            // Add different amounts of funds depending on acc type to Funds.txt
-            int numOfAcc = (int)Enum.Parse(typeof(AccountType), accType);
-            int sizeTest = fundList.UserFunds.Length + 1;
+            // The logic that handles Funds.txt
+            CustomerFunds fundList = new CustomerFunds();
+            int accountType = (int)Enum.Parse(typeof(AccountType), accType); // Gets the amount of accounts that the specified account type has
+            int listLength = fundList.UserFunds.Length + 1;
             decimal[][] listedFunds = fundList.UserFunds;
-            decimal[][] tempFundList = new decimal[sizeTest][];
-            for(int i = 0; i < sizeTest; i++)
+            decimal[][] tempFundList = new decimal[listLength][];
+            // Loops through the listLength
+            for(int i = 0; i < listLength; i++)
             {
-                if (i == sizeTest - 1)
+                // If at the end of array adds the newly created accounts funds to the array
+                // Which are set to 0
+                if (i == listLength - 1) 
                 {
-                    tempFundList[i] = new decimal[numOfAcc];
-                    for (int j = 0; j < numOfAcc; j++)
+                    tempFundList[i] = new decimal[accountType];
+                    for (int j = 0; j < accountType; j++)
                     {
                         tempFundList[i][j] = 0;
                     }
                 }
                 else
                 {
+                    //Fills the temporary array with the current arrays values
                     tempFundList[i] = new decimal[listedFunds[i].Length];
                     for (int h = 0; h < listedFunds[i].Length; h++)
                     {
