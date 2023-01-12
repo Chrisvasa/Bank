@@ -9,7 +9,6 @@ namespace Bank
     internal class AccountCreator
     {
         User userList = new User();
-        CustomerFunds fundList = new CustomerFunds();
         private string userName = "";
         private string pincode = "";
         private string accType = "";
@@ -91,6 +90,7 @@ namespace Bank
 
         private void UpdateUserList()
         {
+            CustomerFunds fundList = new CustomerFunds();
             int size = userList.Users.Length / 3;
             string[,] tempUserList = new string[size + 1, 3];
             for(int i = 0; i < userList.Users.Length / 3; i++)
@@ -106,7 +106,33 @@ namespace Bank
             userList.Users = tempUserList;
             userList.UpdateList();
             // Add different amounts of funds depending on acc type to Funds.txt
-
+            int numOfAcc = (int)Enum.Parse(typeof(AccountType), accType);
+            int sizeTest = fundList.UserFunds.Length + 1;
+            decimal[][] listedFunds = fundList.UserFunds;
+            decimal[][] tempFundList = new decimal[sizeTest][];
+            for(int i = 0; i < sizeTest; i++)
+            {
+                if (i == sizeTest - 1)
+                {
+                    tempFundList[i] = new decimal[numOfAcc];
+                    for (int j = 0; j < numOfAcc; j++)
+                    {
+                        tempFundList[i][j] = 0;
+                    }
+                }
+                else
+                {
+                    tempFundList[i] = new decimal[listedFunds[i].Length];
+                    for (int h = 0; h < listedFunds[i].Length; h++)
+                    {
+                        tempFundList[i][h] = fundList.UserFunds[i][h];
+                    }
+                }
+            }
+            fundList.UserFunds = tempFundList;
+            fundList.UpdateFunds();
         }
+
+            
     }
 }

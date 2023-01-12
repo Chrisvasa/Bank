@@ -26,7 +26,6 @@ class Program
 
         int index;
         bool isTrue = true;
-
         print.Print();
         Console.ReadKey();
         // A menu with 3 options that allows the user to login, reset pincode or exit the program

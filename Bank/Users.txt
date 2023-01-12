@@ -2,8 +2,6 @@ CHRILLE, 12345, Free
 BOB, 4321, Basic
 BILLY, 123, Business
 TJACK-KALLE, 12345, BusinessPremium
-HERMAN, 12345, ExclusiveChrille
-TESTER, 1337, BusinessPremium
-BUILDERBOB, 7331, Exclusive
-KRILLE, 252525, Exclusive
-REZA, 1337, BusinessPremium
+HERMAN, 12345, Exclusive
+TEST, 1337, BusinessPremium
+TESTER, 1337, Business

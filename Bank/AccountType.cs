@@ -11,10 +11,10 @@ namespace Bank
     // Basic = 3 accounts etc
     enum AccountType
     {
-        Free,
-        Basic,
-        Business,
-        BusinessPremium,
-        Exclusive
+        Free = 2,
+        Basic = 3,
+        Business = 4,
+        BusinessPremium = 5,
+        Exclusive = 6
     }
 }
