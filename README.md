@@ -10,7 +10,8 @@ This is a console banking application made with **C#** as a school project.
  - Changing passwords of existing users
  - A login function that locks out a user after too many failed attempts. Other users are still able to log in.
  - Changes that occur to Users or their Funds are both saved in a text file
-___
+
+
 ## Quick run down
 At launch, you are presented with a quick welcome screen to the bank.
 After that you are presented with a menu that allows you to either:
