@@ -96,7 +96,7 @@ namespace Bank
             return false;
         }
 
-        // Method that handles the timeouts that users get after 3 wrongful login attempts
+        // Method that handles the timeouts that users get after 3 failed login attempts
         // A DateTime array that handles different lockouts for different users
         // Once 3 minutes have passed, this returns true
         private static bool TimeOut(int userIndex, DateTime[] userTimers)
@@ -126,10 +126,3 @@ namespace Bank
         }
     }
 }
-
-/* if(array[userIndex] != null?
- *      DateTime start = new DateTime
- *      array[userIndex] = start;
- * DateTime currentTime = DateTime.Now;
- * TimeSpan timeRemaining = currentTime - array[userIndex];
- */

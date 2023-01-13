@@ -7,27 +7,22 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
-    internal class Account
+    // 
+    public static class Account
     {
-        protected static string[][] accounts = new string[][]
+        private static string[][] accounts = new string[][]
         {
             new string[] {"Private Account", "Savings"},
             new string[] {"Private Account", "Savings", "Payroll"},
             new string[] {"Private Account", "Savings", "Payroll", "Gambling"},
             new string[] {"Private Account", "Savings", "Payroll", "Gambling", "Shares & Stocks"},
-            new string[] {"Private Account", "Savings", "Payroll", "Gambling", "Shares & Stocks", "TBD"}
+            new string[] {"Private Account", "Savings", "Payroll", "Gambling", "Shares & Stocks", "Vacation"}
         };
-
-        public static string[][] Accounts
-        {
-            get { return accounts; }
-        }
 
         public static string[] GetAccount(int user)
         {
-            User userTest = new User();
-            string test = userTest.Users[user, 2];
-            int accountIndex = (int)Enum.Parse(typeof(AccountType), test) - 2;
+            string userAccountType = GetAccountType(user);
+            int accountIndex = (int)Enum.Parse(typeof(AccountType), userAccountType) - 2; // Gets the row with users accounts from the accounts jagged array
             return accounts[accountIndex];
         }
 
@@ -35,9 +30,8 @@ namespace Bank
         // Used to show different accounts as a menu
         public static string[] ShowAccount(int user)
         {
-            User userTest = new User();
-            string test = userTest.Users[user,2];
-            int accountType = (int)Enum.Parse(typeof(AccountType), test);
+            string userAccountType = GetAccountType(user);
+            int accountType = (int)Enum.Parse(typeof(AccountType), userAccountType);
             int accountIndex = accountType - 2;
             string[] userAcc = new string[accountType + 1];
             // Gets the account length at given account index, and loops through that many times
@@ -49,6 +43,13 @@ namespace Bank
             // After the loop adds "Go back" to the end of array
             userAcc[accounts[accountIndex].Length] = "Go back";
             return userAcc;
+        }
+
+        private static string GetAccountType(int user)
+        {
+            User userCheck = new User();
+            string userAccount = userCheck.Users[user, 2];
+            return userAccount;
         }
     }
 }

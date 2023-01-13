@@ -7,6 +7,8 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Bank
 {
+    // A class that reads from the Funds.txt, parses it and then stores it as a 2d string array
+    // And writes any changes back to Funds.txt
     internal class CustomerFunds
     {
         protected decimal[][] userFunds = new decimal[0][];
@@ -29,7 +31,9 @@ namespace Bank
                 userArr = File.ReadAllLines("../../../Funds.txt");
             }
             userFunds = new decimal[userArr.Length][];
-
+            // A loop that goes through the array from the textfile
+            // Counts the amount of ';' chars per row
+            // Then loops through that amount of times, and adds the parsed values to userFunds[i][j] array
             for (int i = 0; i < userArr.Length; i++)
             {
                 int count = userArr[i].Split(';').Length;

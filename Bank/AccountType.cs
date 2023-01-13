@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace Bank
 {
     // Different AccountTypes 
-    // Free = 2 accounts
-    // Basic = 3 accounts etc
+    // With the amount of accounts that each tier has
     enum AccountType
     {
         Free = 2,

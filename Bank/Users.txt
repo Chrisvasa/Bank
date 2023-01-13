@@ -1,5 +1,5 @@
-CHRILLE, 12345, Free
-BOB, 12345, Basic
-BILLY, 12345, Business
-TJACK-KALLE, 12345, BusinessPremium
-HERMAN, 12345, Exclusive
+CHRILLE, 54321, Free
+BOB, 7331, Basic
+BILLY, 25354555, Business
+KALLE, 313, BusinessPremium
+HERMAN, 1337, Exclusive

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
+    // Allows the user to create new accounts
     internal class AccountCreator
     {
         private string userName = "";
@@ -113,7 +114,6 @@ namespace Bank
                     userName = "";
                     pincode = "";
                     selectedAccountType = "";
-
                 }
             }
             else
@@ -174,9 +174,9 @@ namespace Bank
                 {
                     //Fills the temporary array with the current arrays values
                     tempFundList[i] = new decimal[listedFunds[i].Length];
-                    for (int h = 0; h < listedFunds[i].Length; h++)
+                    for (int j = 0; j < listedFunds[i].Length; j++)
                     {
-                        tempFundList[i][h] = FundList.UserFunds[i][h];
+                        tempFundList[i][j] = FundList.UserFunds[i][j];
                     }
                 }
             }

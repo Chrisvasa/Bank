@@ -8,6 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Bank
 {
     // A class that reads from the Users.txt, parses it and then stores it as a 2d string array
+    // And writes any changes back to Users.txt
     internal class User
     {
         protected string[,] users = new string[0, 0];
@@ -41,11 +42,6 @@ namespace Bank
                     }
                 }
             }
-        }
-        // Getters and setters
-        public string[,] GetUsers()
-        {
-            return users;
         }
 
         public string[,] Users 
