@@ -33,13 +33,21 @@ After that you are presented with a menu that allows you to either:
 ## **Code overview**
 
 `Account.cs` -- A static class that holds the jagged array containing the different types of accounts a user can have. Has two simple methods to *get an account at a given index and return it*. Also, a method that creates an array with the menu items at a given index, and adds a go back option. To be used with the `Menu.cs` class.
+
 `AccountCreator.cs` -- A class that allows the user to create new accounts. Set their username, pin code, and account type. And then adds it to the `Users.txt` and `Funds.txt`
+
 **`AccountType.cs`** -- An enum that is used to identify what accounts to display to each user.
+
 CustomerFunds.cs -- A class that has methods to handle reading data from text files and putting those into usable arrays, and also writing data to text files. Also includes methods to retrieve funds for specific users.
+
 `InputHandler.cs` -- A *"class"* that has one method and that is to validate user input and return the valid key press.
+
 Login.cs -- A class that handles all tasks related to the User Login process. The method  `UserLogin` validates user input, and keeps track of failed attempts per user by storing them in an array. The second method is then called after three failed login attempts. And that method keeps unique timers per user, so you are only locked out of that specific account for three minutes.
+
 `Menu.cs` -- A class with the purpose of creating menus from regular string arrays. Allows the user to move freely in the menu with their arrow keys.
+
 `PrintSystems.cs` -- Class with the purpose of providing some basic methods for console output. Such as, `PrintTransaction` which prints out a loading bar, that gets called when transactions are being processed.
+
 `Program.cs` -- Includes everything that makes the application tick. Methods for all the banks functions, such as:
 
  - CheckAccountFunds -- Which allows a user to see funds to all their different accounts.
