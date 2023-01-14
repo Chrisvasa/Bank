@@ -43,7 +43,7 @@ CustomerFunds.cs -- A class that has methods to handle reading data from text fi
 
 `InputHandler.cs` -- A *"class"* that has one method and that is to validate user input and return the valid key press.
 
-Login.cs -- A class that handles all tasks related to the User Login process. The method  `UserLogin` validates user input, and keeps track of failed attempts per user by storing them in an array. The second method is then called after three failed login attempts. And that method keeps unique timers per user, so you are only locked out of that specific account for three minutes.
+`Login.cs` -- A class that handles all tasks related to the User Login process. The method  `UserLogin` validates user input, and keeps track of failed attempts per user by storing them in an array. The second method is then called after three failed login attempts. And that method keeps unique timers per user, so you are only locked out of that specific account for three minutes.
 
 `Menu.cs` -- A class with the purpose of creating menus from regular string arrays. Allows the user to move freely in the menu with their arrow keys.
 
