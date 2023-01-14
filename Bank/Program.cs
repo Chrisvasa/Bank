@@ -406,13 +406,4 @@ class Program
     }
 }
 
-/* Jobba på:
- *  ----------------------------------------------------
- *  GAMBLING/CRYPTO
- *  > Slumpat nummer som hoppar upp och ner
- *  >> Större chans att valutan går nedåt än uppåt
- *  > Möjlighet att investera pengar
- *  >> Kan ta ut investeringen/Pengarna 
- *   ---------------------------------------------------
- */
 

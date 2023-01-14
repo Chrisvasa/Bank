@@ -46,29 +46,53 @@ namespace Bank
 
         private void SetUsername()
         {
-            while (String.IsNullOrEmpty(userName))
+            do
             {
                 Console.Clear();
                 Console.Write("Enter Username:");
-                userName = Console.ReadLine();
-            };
+                userName = Console.ReadLine().ToUpper();
+            } while (String.IsNullOrEmpty(userName));
+
+            bool isNameAvailable = CheckNameAvailability(userName);
+            if (!isNameAvailable)
+            {
+                Console.WriteLine("Username is already taken. Try again!");
+                userName = "";
+                Console.ReadKey();
+            }
+        }
+        // Checks the given name by the user against other usernames to avoid duplicates
+        private bool CheckNameAvailability(string name)
+        {
+            User userList = new User();
+            bool isNameAvailable = true;
+
+            for (int i = 0; i < userList.Users.Length / 3; i++)
+            {
+                if (name == userList.Users[i, 0])
+                {
+                    isNameAvailable = false;
+                    return isNameAvailable;
+                }
+            }
+            return isNameAvailable;
         }
 
         private void SetPincode()
         {
-            while (String.IsNullOrEmpty(pincode))
+            do
             {
                 Console.Clear();
                 Console.Write("Enter Pincode:");
                 pincode = Console.ReadLine();
-            };
+            } while (String.IsNullOrEmpty(pincode));
         }
 
         private void SetAccountType()
         {
             Menu accountMenu = new Menu(new string[] { "Free", "Basic", "Business", "Business Premium", "Exclusive", "Go back" });
             accountMenu.PrintSystem();
-            while (String.IsNullOrEmpty(selectedAccountType))
+            do
             {
                 int index = accountMenu.UseMenu();
                 switch(index)
@@ -92,12 +116,12 @@ namespace Bank
                         Console.WriteLine("Please select an account type before exiting");
                         break;
                 }
-            };
+            } while (String.IsNullOrEmpty(selectedAccountType));
         }
 
         private void CreateAccount()
         {
-            if(!String.IsNullOrWhiteSpace(userName) || !String.IsNullOrWhiteSpace(pincode) || !String.IsNullOrWhiteSpace(selectedAccountType))
+            if(!String.IsNullOrWhiteSpace(userName) && !String.IsNullOrWhiteSpace(pincode) && !String.IsNullOrWhiteSpace(selectedAccountType)) // Makes sure none of the strings are empty
             {
                 Console.Clear();
                 Console.WriteLine("Are you sure you want to create your account?");
@@ -111,6 +135,7 @@ namespace Bank
                     UpdateUserList();
                     Console.WriteLine("Your account was successfully created. Press any key to continue.");
                     Console.ReadKey(true);
+                    // Once account has been created, empties out the strings again.
                     userName = "";
                     pincode = "";
                     selectedAccountType = "";
@@ -118,7 +143,6 @@ namespace Bank
             }
             else
             {
-                //Console.WriteLine("Please enter some data to create an account.");
                 Console.WriteLine("Make sure you have not missed to fill in any data.");
                 Console.ReadKey();
             }
