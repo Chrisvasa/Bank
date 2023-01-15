@@ -23,13 +23,19 @@ namespace Bank
         public void LoadUser()
         {
             string[] userArr;
-            if (File.Exists(".\\Users.txt"))
+            // Works for powershell and on windows, hopefully works on mac
+            if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Users.txt")))
             {
-                userArr = File.ReadAllLines(".\\Users.txt");
+                userArr = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Users.txt"));
+
             }
-            else
+            else if (File.Exists("../../../Users.txt")) // Works on windows if ran from visual studio
             {
                 userArr = File.ReadAllLines("../../../Users.txt");
+            }
+            else // Hopefully this works on mac if those above does not
+            {
+                userArr = File.ReadAllLines("..\\..\\..\\Users.txt");
             }
             users = new string[userArr.Length, 3];
             for (int i = 0; i < userArr.Length; i++)
@@ -108,13 +114,19 @@ namespace Bank
                     text += "\n";
                 }
             }
-            if (File.Exists(".\\Users.txt"))
+            // Works for powershell and on windows, hopefully works on mac
+            if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Users.txt")))
             {
-                File.WriteAllText(".\\Users.txt", text);
+                File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "Users.txt"), text);
+
             }
-            else
+            else if (File.Exists("../../../Users.txt")) // Works on windows if ran from visual studio
             {
-                File.WriteAllText("../../../Users.txt", text);
+                File.WriteAllText("../../../Users.txt",text);
+            }
+            else // Hopefully this works on mac if those above does not
+            {
+                File.WriteAllText("..\\..\\..\\Users.txt", text);
             }
         }
 

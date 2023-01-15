@@ -20,28 +20,34 @@ namespace Bank
         // Reads in the data from Funds.txt and places it in an array
         public void LoadFunds()
         {
-            string[] test;
-            string[] userArr;
-            if (File.Exists(".\\Funds.txt"))
+            string[] funds;
+            string[] customerFunds;
+            // Works for powershell and on windows, hopefully works on mac
+            if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Funds.txt")))
             {
-                userArr = File.ReadAllLines(".\\Funds.txt");
+                customerFunds = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Funds.txt"));
+
             }
-            else
+            else if (File.Exists("../../../Funds.txt")) // Works on windows if ran from visual studio
             {
-                userArr = File.ReadAllLines("../../../Funds.txt");
+                customerFunds = File.ReadAllLines("../../../Funds.txt");
             }
-            userFunds = new decimal[userArr.Length][];
+            else // Hopefully this works on mac if those above does not
+            {
+                customerFunds = File.ReadAllLines("..\\..\\..\\Funds.txt");
+            }
+            userFunds = new decimal[customerFunds.Length][];
             // A loop that goes through the array from the textfile
             // Counts the amount of ';' chars per row
             // Then loops through that amount of times, and adds the parsed values to userFunds[i][j] array
-            for (int i = 0; i < userArr.Length; i++)
+            for (int i = 0; i < customerFunds.Length; i++)
             {
-                int count = userArr[i].Split(';').Length;
+                int count = customerFunds[i].Split(';').Length;
                 userFunds[i] = new decimal[count];
                 for (int j = 0; j < count; j++)
                 {
-                    test = userArr[i].Split(";");
-                    userFunds[i][j] = decimal.Parse(test[j]);
+                    funds = customerFunds[i].Split(";");
+                    userFunds[i][j] = decimal.Parse(funds[j]);
                 }
             }
         }
@@ -81,13 +87,19 @@ namespace Bank
                     fundList.Append('\n');
                 }
             }
-            if (File.Exists(".\\Funds.txt"))
+            // Works for powershell and on windows, hopefully works on mac
+            if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Funds.txt")))
             {
-                File.WriteAllText(".\\Funds.txt", fundList.ToString());
+                File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "Funds.txt"), fundList.ToString());
+
             }
-            else
+            else if (File.Exists("../../../Funds.txt")) // Works on windows if ran from visual studio
             {
                 File.WriteAllText("../../../Funds.txt", fundList.ToString());
+            }
+            else // Hopefully this works on mac if those above does not
+            {
+                File.WriteAllText("..\\..\\..\\Funds.txt", fundList.ToString());
             }
         }
 

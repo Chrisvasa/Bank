@@ -75,22 +75,22 @@ namespace Bank
         {
             InputHandler menuInput = new InputHandler();
 
-            ConsoleKey key;
+            ConsoleKey userInput;
             bool usingMenu = true;
             do
             {
-                key = menuInput.ReadInput();
+                userInput = menuInput.ReadInput();
                 // Moves up and down in the array, depending on the input
                 // If user presses enter, breaks the loop and returns currenty selected index
-                if (key == ConsoleKey.UpArrow)
+                if (userInput == ConsoleKey.UpArrow)
                 {
                     SelectIndex--;
                 }
-                else if (key == ConsoleKey.DownArrow)
+                else if (userInput == ConsoleKey.DownArrow)
                 {
                     SelectIndex++;
                 }
-                else if (key == ConsoleKey.Enter || key == ConsoleKey.Spacebar)
+                else if (userInput == ConsoleKey.Enter || userInput == ConsoleKey.Spacebar)
                 {
                     break;
                 }

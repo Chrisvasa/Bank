@@ -12,15 +12,20 @@ namespace Bank
         string text;
         // Reads in the welcome message from CreatorTitle.txt
         public PrintSystem()
-        {
-            if(File.Exists(".\\CreatorTitle.txt"))
+        { 
+            // Works for powershell and on windows, hopefully works on mac
+            if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "CreatorTitle.txt")))
             {
-                text = File.ReadAllText(".\\CreatorTitle.txt");
+                text = File.ReadAllText((Path.Combine(Directory.GetCurrentDirectory(), "CreatorTitle.txt")));
 
             }
-            else
+            else if(File.Exists("../../../CreatorTitle.txt")) // Works on windows if ran from visual studio
             {
                 text = File.ReadAllText("../../../CreatorTitle.txt");
+            }
+            else // Hopefully this works on mac if those above does not
+            {
+                text = File.ReadAllText("..\\..\\..\\CreatorTitle.txt");
             }
         }
         // Prints out the welcome message when called
