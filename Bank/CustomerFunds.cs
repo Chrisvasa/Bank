@@ -66,17 +66,17 @@ namespace Bank
         {
             StringBuilder fundList = new StringBuilder();
 
-            for(int i = 0; i < userFunds.Length; i++) 
+            for(int i = 0; i < userFunds.Length; i++) // Loops through the array of funds
             { 
-                for(int j = 0; j < userFunds[i].Length; j++)
+                for(int j = 0; j < userFunds[i].Length; j++) // Loops through the columns in the array of funds
                 {
-                    fundList.Append(userFunds[i][j]);
-                    if(j >= 0 && j < userFunds[i].Length - 1)
+                    fundList.Append(userFunds[i][j]); // Adds each item to the stringbuilder
+                    if (j >= 0 && j < userFunds[i].Length - 1) // Adds a semicolon between funds
                     {
                         fundList.Append(";");
                     }
                 }
-                if(i < userFunds.Length - 1)
+                if(i < userFunds.Length - 1) // Adds a newline at the end of a column
                 {
                     fundList.Append('\n');
                 }

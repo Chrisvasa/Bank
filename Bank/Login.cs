@@ -49,7 +49,7 @@ namespace Bank
                         userLog = 1; // To see if username exists
                         if (userLogIndex[i] >= 3)
                         {
-                            bool login = TimeOut(i, userTimers);
+                            bool login = TimeOut(i, userTimers); // Calls the method that handles timeouts
                             if(login)
                             {
                                 userLogIndex[i] = 0;
@@ -67,7 +67,7 @@ namespace Bank
                             if (users[i, 1] == password)
                             {
                                 PrintSystem.Delay("You are being logged in", 3);
-                                UserIndex = i;
+                                UserIndex = i; // Setter for the User Index to track which user has logged in
                                 return true;
                             }
                             else

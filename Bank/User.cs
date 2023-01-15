@@ -17,7 +17,9 @@ namespace Bank
         {
             LoadUser();
         }
-
+        // A method that loads in and parses from the Users.txt
+        // Splits the text, trims it and stores it as a 2d string array
+        // First column is the username, second is for the pincode and third is for the account type
         public void LoadUser()
         {
             string[] userArr;
@@ -54,6 +56,9 @@ namespace Bank
         {
             return users[index, 2];
         }
+        // A method to reset the pincodes of existing users
+        // Checks if the username exists, and if it does
+        // Prompts user for new pincode and then stores it into the 2d array that was created above
         public void ResetPin()
         {
             Console.Clear();
@@ -80,7 +85,7 @@ namespace Bank
             }
         }
 
-        // Updates the Users.txt file with changed values
+        // Updates the Users.txt file with changed values from the 2d string array
         public void UpdateList()
         {
             string text = "";

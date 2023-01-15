@@ -18,6 +18,7 @@ namespace Bank
             new string[] {"Private Account", "Savings", "Payroll", "Gambling", "Shares & Stocks", "Vacation"}
         };
 
+        // Takes the user index and returns the corresponding string-array of accounts and returns it
         public static string[] GetAccount(int user)
         {
             string userAccountType = GetAccountType(user);

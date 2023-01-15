@@ -13,6 +13,7 @@ namespace Bank
         private string pincode = "";
         private string selectedAccountType = "";
         
+        // The Create a customer menu
         public void CreateCustomer()
         {
             Menu AccountCreatorMenu = new Menu(new string[] { "Set Username", "Set Pincode", "Set Account Type", "Create the account", "Go back" });
@@ -43,7 +44,8 @@ namespace Bank
                 AccountCreatorMenu.PrintSystem();
             } while (IsRunning);
         }
-
+        // Allows the user to enter a username and checks if it is unique
+        // If username is already taken, gives a warning to the user and empties the string
         private void SetUsername()
         {
             do
@@ -87,7 +89,7 @@ namespace Bank
                 pincode = Console.ReadLine();
             } while (String.IsNullOrEmpty(pincode));
         }
-
+        // Allows the user to select a account type, loops until one has been chosen
         private void SetAccountType()
         {
             Menu accountMenu = new Menu(new string[] { "Free", "Basic", "Business", "Business Premium", "Exclusive", "Go back" });
@@ -118,7 +120,9 @@ namespace Bank
                 }
             } while (String.IsNullOrEmpty(selectedAccountType));
         }
-
+        // Firstly checks if the strings have values, else warns the user to input missing data
+        // Then prints out all the data to the user, so they can confirm/deny their changes
+        // If yes, Calls the UpdateUserList() and then empties the strings to allow for new accounts to be created
         private void CreateAccount()
         {
             if(!String.IsNullOrWhiteSpace(userName) && !String.IsNullOrWhiteSpace(pincode) && !String.IsNullOrWhiteSpace(selectedAccountType)) // Makes sure none of the strings are empty

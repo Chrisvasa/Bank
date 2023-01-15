@@ -10,6 +10,7 @@ namespace Bank
     internal class PrintSystem
     {
         string text;
+        // Reads in the welcome message from CreatorTitle.txt
         public PrintSystem()
         {
             if(File.Exists(".\\CreatorTitle.txt"))
@@ -22,7 +23,7 @@ namespace Bank
                 text = File.ReadAllText("../../../CreatorTitle.txt");
             }
         }
-
+        // Prints out the welcome message when called
         public void PrintWelcome()
         {
             Console.Clear();

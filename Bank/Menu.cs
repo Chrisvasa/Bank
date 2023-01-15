@@ -36,12 +36,14 @@ namespace Bank
             // Prints out the menu items in the console, and puts brackets around the selected item.
             for (int i = 0; i < menuArr.Count(); i++)
             {
+                // Checks if the current menu choice is the selected item 
+                // Makes the text green and puts brackets around it
                 if (i == selectedIndex)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("[ {0} ]", menuArr[i]);
                 }
-                else
+                else 
                 {
                     Console.ResetColor();
                     Console.WriteLine("  {0}  ", menuArr[i]);
@@ -67,6 +69,7 @@ namespace Bank
         {
             menuArr = menu;
         }
+
         // A method that allows the user to orientate around the menu
         public int UseMenu() 
         {
@@ -77,6 +80,8 @@ namespace Bank
             do
             {
                 key = menuInput.ReadInput();
+                // Moves up and down in the array, depending on the input
+                // If user presses enter, breaks the loop and returns currenty selected index
                 if (key == ConsoleKey.UpArrow)
                 {
                     SelectIndex--;
