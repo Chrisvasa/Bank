@@ -149,7 +149,7 @@ class Program
             else
             {
                 Console.Write("Input amount to transfer: ");
-                bool success = decimal.TryParse(Console.ReadLine(), out decimal userInput);
+                bool success = decimal.TryParse(Console.ReadLine(), out decimal userInput); // Validates user input
                 if (success)
                 {
                     if (userInput <= fundList[index] && userInput > 0)
@@ -173,7 +173,8 @@ class Program
                             fundList[recieverIndex] += userInput;
                             PrintSystem.PrintTransaction();
                             Console.WriteLine("You have transfered: {0:N2} SEK from {1} to {2}", userInput, accounts[index], accounts[recieverIndex]);
-                            Console.WriteLine("The balance on your {0} is now: {1:N2} SEK", accounts[recieverIndex], fundList[recieverIndex]);
+                            Console.WriteLine("The remaining balance on your {0} is now: {1:N2} SEK", accounts[userIndex], fundList[userIndex]);
+                            Console.WriteLine("The new balance on your {0} is now: {1:N2} SEK", accounts[recieverIndex], fundList[recieverIndex]);
                             Console.ReadKey(true);
                         }
                     }
@@ -223,7 +224,7 @@ class Program
             else 
             {
                 Console.WriteLine("How much do you want to transfer?");
-                bool success = decimal.TryParse(Console.ReadLine(), out decimal answer);
+                bool success = decimal.TryParse(Console.ReadLine(), out decimal answer); // Validates user input
                 if (success)
                 {
                     if (answer <= fundList[userIndex][index] && answer > 0)
@@ -321,7 +322,7 @@ class Program
             else
             {
                 Console.WriteLine("How much money do you want to withdraw?");
-                bool success = int.TryParse(Console.ReadLine(), out int answer);
+                bool success = int.TryParse(Console.ReadLine(), out int answer); // Validates user input
                 if (success)
                 {
                     if (answer <= fundList[index] && answer > 0)
@@ -388,7 +389,7 @@ class Program
             else
             {
                 Console.WriteLine("How much money do you want to deposit?");
-                bool success = decimal.TryParse(Console.ReadLine(), out decimal answer);
+                bool success = decimal.TryParse(Console.ReadLine(), out decimal answer); // Validates user input
                 if (success && answer > 0)
                 {
                     fundList[index] += answer;
