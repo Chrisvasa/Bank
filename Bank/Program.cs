@@ -95,7 +95,7 @@ class Program
             }
         };
     }
-    // Allows user to see their balance
+    // Allows user to see their account balance
     private static void CheckAccountFunds(int userIndex, CustomerFunds Funds)
     {
         Menu CheckFundsMenu = new Menu();
@@ -173,7 +173,7 @@ class Program
                             fundList[recieverIndex] += userInput;
                             PrintSystem.PrintTransaction();
                             Console.WriteLine("You have transfered: {0:N2} SEK from {1} to {2}", userInput, accounts[index], accounts[recieverIndex]);
-                            Console.WriteLine("The remaining balance on your {0} is now: {1:N2} SEK", accounts[userIndex], fundList[userIndex]);
+                            Console.WriteLine("The remaining balance on your {0} is now: {1:N2} SEK", accounts[index], fundList[index]);
                             Console.WriteLine("The new balance on your {0} is now: {1:N2} SEK", accounts[recieverIndex], fundList[recieverIndex]);
                             Console.ReadKey(true);
                         }
