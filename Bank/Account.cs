@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
-    // 
     public static class Account
     {
         private static string[][] accounts = new string[][]
