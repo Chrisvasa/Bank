@@ -3,3 +3,4 @@ BOB, 7331, Basic
 BILLY, 25354555, Business
 KALLE, 313, BusinessPremium
 HERMAN, 1337, Exclusive
+BOBBY, 1337, BusinessPremium

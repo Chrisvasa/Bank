@@ -240,7 +240,7 @@ class Program
                                 fundList[userIndex][index] -= answer;
                                 PrintSystem.PrintTransaction();
                                 Console.WriteLine("You have now transfered {0:N2} SEK to {1}", answer, userList[transferIndex, 0]);
-                                Console.WriteLine("The remaining balance on your {0} is now: {1:N2} SEK", userAccount[userIndex], fundList[userIndex][index]);
+                                Console.WriteLine("The remaining balance on your {0} is now: {1:N2} SEK", userAccount[index], fundList[userIndex][index]);
                                 Console.ReadKey(true);
                                 IsRunning = false;
                                 break;
